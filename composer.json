@@ -1,0 +1,17 @@
+{
+    "name": "lazyphp/lazyphp-catalog",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lcomex",
+            "email": "lcomex@overconsulting.net"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "Catalog": "/"
+        }
+    }
+}
