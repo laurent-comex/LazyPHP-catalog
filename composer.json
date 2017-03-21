@@ -11,7 +11,9 @@
     "require": {},
     "autoload": {
         "psr-0": {
-            "Catalog": "/"
+            "Catalog": "/",
+            "Catalog\\controllers": "/controllers/",
+            "Catalog\\models": "/models/"
         }
     }
 }
