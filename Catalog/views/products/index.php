@@ -1,7 +1,7 @@
 <h1 class="page-title">Produits</h1>
 <br />
 <div class="">
-    {% button link="catalog_products_new" type="success" icon="plus" content="Ajouter un produit" %}
+    {% button url="catalog_products_new" type="success" icon="plus" content="Ajouter un produit" %}
 </div>
 <br />
 <table class="table table-hover">

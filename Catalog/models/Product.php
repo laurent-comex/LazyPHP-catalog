@@ -9,7 +9,10 @@ use System\Password;
 class Product extends Model
 {
     protected $permittedColumns = array(
+        'category_id',
         'name',
+        'description',
+        'price',
         'active'
     );
 
