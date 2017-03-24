@@ -1,9 +1,5 @@
 <h1 class="page-title">Produits</h1>
 <br />
-<div class="">
-    {% button url="catalog_products_new" type="success" icon="plus" content="Ajouter un produit" %}
-</div>
-<br />
 <table class="table table-hover">
     <thead>
         <tr>
@@ -24,8 +20,7 @@ foreach ($params['products'] as $product) {
     echo '<td>'.$product->name.'</td>';
     echo '<td>'.$product->price.'</td>';
     echo '<td>';?>
-    {% button link="catalog_products_edit" type="success" size="xs" icon="plus" content="" %}
-    {% button link="catalog_products_delete" type="success" icon="trash-o" confirmation="Vous confirmer vouloir supprimer ce produit?" %}<?php
+    {% button link="catalog_products_show" type="success" size="xs" icon="eye-o" content="" %}<?php
     echo '</td>';
     echo '</tr>';
 }

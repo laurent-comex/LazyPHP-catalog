@@ -43,21 +43,7 @@ class ProductsController extends Controller
         ));
     }
 
-    public function newAction()
-    {
-        if ($this->product === null) {
-            $this->product = new Product();
-        }
-
-        $this->render('edit', array(
-            'id' => 0,
-            'product' => $this->product,
-            'pageTitle' => 'Nouveau produit',
-            'formAction' => Router::url('cockpit_products_create')
-        ));
-    }
-
-    public function editAction($id)
+    public function showAction()
     {
         if ($this->product === null) {
             $this->product = Product::findById($id);
@@ -66,54 +52,7 @@ class ProductsController extends Controller
         $this->render('edit', array(
             'id' => $id,
             'product' => $this->product,
-            'pageTitle' => 'Modification produit n°'.$id,
-            'formAction' => Router::url('cockpit_products_update_'.$id)
+            'pageTitle' => 'Produit n°'.$id
         ));
-    }
-
-    public function createAction()
-    {
-        $this->product = new Product();
-        $this->product->setData($this->request->post);
-
-        if ($this->product->valid()) {
-            if ($this->product->create((array)$this->product)) {
-                Session::addFlash('Produit ajouté', 'success');
-                $this->redirect('cockpit_products');
-            } else {
-                Session::addFlash('Erreur insertion base de données', 'danger');
-            };
-        } else {
-            Session::addFlash('Erreur(s) dans le formulaire', 'danger');
-        }
-
-        $this->newAction();
-    }
-
-    public function updateAction($id)
-    {
-        $this->product = Product::findById($id);
-        $this->product->setData($this->request->post);
-
-        if ($this->product->valid()) {
-            if ($this->product->update((array)$this->product)) {
-                Session::addFlash('Produit modifié', 'success');
-                $this->redirect('cockpit_products');
-            } else {
-                Session::addFlash('Erreur mise à jour base de données', 'danger');
-            }
-        } else {
-            Session::addFlash('Erreur(s) dans le formulaire', 'danger');
-        }
-
-        $this->editAction($id);
-    }
-
-    public function deleteAction($id)
-    {
-        $product = Product::findById($id);
-        $product->delete();
-        Session::addFlash('Produit supprimé', 'success');
-        $this->redirect('cockpit_products');
     }
 }
