@@ -50,6 +50,10 @@ class Product extends Model
             $this->price = 0.0;
         }
 
+        if (!isset($this->active) || $this->active == '') {
+            $this->active = 0;
+        }
+
         return empty($this->errors);
     }
 }

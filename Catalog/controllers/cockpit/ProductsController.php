@@ -13,10 +13,10 @@ namespace Catalog\controllers\cockpit;
 
 use System\Controller;
 use System\Session;
-use System\Query;
 use System\Router;
 
 use Catalog\models\Product;
+use Catalog\models\Category;
 
 /**
  * Products controller
@@ -40,7 +40,7 @@ class ProductsController extends Controller
 
         $this->render('index', array(
             'products' => $products,
-            'pageTitle' => 'Nouveau produit'
+            'pageTitle' => 'Produits'
         ));
     }
 
@@ -50,9 +50,12 @@ class ProductsController extends Controller
             $this->product = new Product();
         }
 
+        $categoriesOptions = Category::getOptions($this->product->category_id);
+
         $this->render('edit', array(
             'id' => 0,
             'product' => $this->product,
+            'categoriesOptions' => $categoriesOptions,
             'pageTitle' => 'Nouveau produit',
             'formAction' => Router::url('cockpit_catalog_products_create')
         ));
@@ -64,9 +67,12 @@ class ProductsController extends Controller
             $this->product = Product::findById($id);
         }
 
+        $categoriesOptions = Category::getOptions($this->product->category_id);
+
         $this->render('edit', array(
             'id' => $id,
             'product' => $this->product,
+            'categoriesOptions' => $categoriesOptions,
             'pageTitle' => 'Modification produit n°'.$id,
             'formAction' => Router::url('cockpit_catalog_products_update_'.$id)
         ));
@@ -74,11 +80,14 @@ class ProductsController extends Controller
 
     public function createAction()
     {
+        if (!isset($this->request->post['active'])) {
+            $this->request->post['active'] = 0;
+        }
+
         $this->product = new Product();
         $this->product->setData($this->request->post);
 
         if ($this->product->valid()) {
-            //debug($this->product);exit;
             if ($this->product->create((array)$this->product)) {
                 Session::addFlash('Produit ajouté', 'success');
                 $this->redirect('cockpit_catalog_products');
@@ -94,6 +103,10 @@ class ProductsController extends Controller
 
     public function updateAction($id)
     {
+        if (!isset($this->request->post['active'])) {
+            $this->request->post['active'] = 0;
+        }
+
         $this->product = Product::findById($id);
         $this->product->setData($this->request->post);
 

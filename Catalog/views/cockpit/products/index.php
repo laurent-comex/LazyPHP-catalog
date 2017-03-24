@@ -19,7 +19,7 @@ foreach ($params['products'] as $product) {
     if ($product->active == 1) {
         $active = '<i class="fa fa-check"></i>';
     } else {
-        $active = '<i class="fa fa-cross"></i>';
+        $active = '<i class="fa fa-times"></i>';
     }
     echo 
         '<tr>'.

@@ -2,7 +2,8 @@
 <div class="actions">
     {% button url="cockpit_catalog_products" type="default" icon="arrow-left" content="Retour" %}
 </div>
-<form id="formProduct" method="post" action="<?php echo $params['formAction']; ?>" class="form form-horizontal">
+<form id="formProduct" method="post" action="{{ formAction }}" class="form form-horizontal">
+    {% input_select name="category_id" model="product.category_id" options="categoriesOptions" label="Catégorie" %}
     {% input_text name="name" model="product.name" label="Nom" %}
     {% input_textarea name="description" model="product.description" label="Description" rows="10" %}
     {% input_text name="price" model="product.price" label="Prix" %}
