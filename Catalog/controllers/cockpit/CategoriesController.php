@@ -17,7 +17,7 @@ class CategoriesController extends Controller
 
     public function indexAction()
     {
-        $categories = Category::findAll();
+        $categories = Category::getFlatCategories();
 
         $this->render('index', array(
             'categories' => $categories,
@@ -31,9 +31,12 @@ class CategoriesController extends Controller
             $this->category = new Category();
         }
 
+        $categoriesOptions = Category::getOptions($this->category->parent);
+
         $this->render('edit', array(
             'id' => 0,
             'category' => $this->category,
+            'categoriesOptions' => $categoriesOptions,
             'pageTitle' => 'Nouvelle catégorie',
             'formAction' => Router::url('cockpit_catalog_categories_create')
         ));
@@ -45,9 +48,12 @@ class CategoriesController extends Controller
             $this->category = Category::findById($id);
         }
 
+        $categoriesOptions = Category::getOptions($this->category->parent);
+
         $this->render('edit', array(
             'id' => $id,
             'category' => $this->category,
+            'categoriesOptions' => $categoriesOptions,
             'pageTitle' => 'Modification catégorie n°'.$id,
             'formAction' => Router::url('cockpit_catalog_categories_update_'.$id)
         ));

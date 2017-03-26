@@ -5,8 +5,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th width="1%">ID</th>
-            <th>Parent</th>
+            <th width="1%">*</th>
             <th>Nom</th>
             <th>Actif</th>
             <th width="10%">Action</th>
@@ -22,8 +21,7 @@ foreach ($params['categories'] as $category) {
     }
     echo 
         '<tr>'.
-            '<td>'.$category->id.'</td>'.
-            '<td>'.$category->parent.'</td>'.
+            '<td>'.$category->level.'</td>'.
             '<td>'.$category->name.'</td>'.
             '<td>'.$active.'</td>'.
             '<td>';?>
