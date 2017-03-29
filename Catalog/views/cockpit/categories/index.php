@@ -5,25 +5,31 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th width="1%">*</th>
+            <th width="10%"></th>
             <th>Nom</th>
             <th>Actif</th>
-            <th width="10%">Action</th>
+            <th width="10%">Actions</th>
         </tr>
     </thead>
     <tbody>
 <?php
 foreach ($params['categories'] as $category) {
+    $level = '<span style="font-family: monospace;">'.str_repeat('&nbsp;', $category->level * 4).'|___</span>';
+
     if ($category->active == 1) {
         $active = '<i class="fa fa-check"></i>';
     } else {
         $active = '<i class="fa fa-times"></i>';
     }
+
+
+
     echo 
         '<tr>'.
-            '<td>'.$category->level.'</td>'.
+            '<td>'.$level.'</td>'.
             '<td>'.$category->name.'</td>'.
             '<td>'.$active.'</td>'.
+            '<td>'.$position.'</td>'.
             '<td>';?>
                 {% button url="cockpit_catalog_categories_edit_<?php echo $category->id ?>" type="primary" size="xs" icon="pencil" content="" %}
                 {% button url="cockpit_catalog_categories_delete_<?php echo $category->id ?>" type="danger" size="xs" icon="trash-o" confirmation="Vous confirmer vouloir supprimer cette category?" %}<?php

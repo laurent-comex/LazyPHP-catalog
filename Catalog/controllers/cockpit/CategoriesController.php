@@ -31,7 +31,7 @@ class CategoriesController extends Controller
             $this->category = new Category();
         }
 
-        $categoriesOptions = Category::getOptions($this->category->parent);
+        $categoriesOptions = Category::getOptions();
 
         $this->render('edit', array(
             'id' => 0,

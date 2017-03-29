@@ -17,6 +17,22 @@ class Product extends Model
     );
 
     /**
+     * Get list of associed table(s)
+     *
+     * @return mixed
+     */
+    public function getAssociations()
+    {
+        return array(
+            'category' => array(
+                'type' => '1',
+                'model' => 'Catalog\\models\\Category',
+                'key' => 'category_id'
+            )
+        );
+    }
+
+    /**
      * Set default properties values
      */
     public function setDefaultProperties()

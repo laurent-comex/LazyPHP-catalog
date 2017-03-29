@@ -10,7 +10,7 @@
             <th>Nom</th>
             <th>Prix</th>
             <th>Actif</th>
-            <th width="10%">Action</th>
+            <th width="10%">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -21,10 +21,13 @@ foreach ($params['products'] as $product) {
     } else {
         $active = '<i class="fa fa-times"></i>';
     }
+
+    $categoryName = $product->category != null ? $product->category->name : '';
+
     echo 
         '<tr>'.
             '<td>'.$product->id.'</td>'.
-            '<td>'.$product->category_id.'</td>'.
+            '<td>'.$categoryName.'</td>'.
             '<td>'.$product->name.'</td>'.
             '<td>'.$product->price.'</td>'.
             '<td>'.$active.'</td>'.

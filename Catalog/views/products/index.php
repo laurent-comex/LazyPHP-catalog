@@ -8,7 +8,7 @@
             <th>Nom</th>
             <th>Prix</th>
             <th>Actif</th>
-            <th width="10%">Action</th>
+            <th width="10%">Actions</th>
         </tr>
     </thead>
     <tbody>

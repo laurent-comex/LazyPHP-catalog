@@ -64,18 +64,15 @@ class Category extends Model
 
         if ($recursive) {
             if ($flat) {
-                $tmpCategories = array();
-                foreach ($categories as $category) {
-                    echo $category->name.' / '.$category->level;
-                    $tmpCategories[] = $category;
+                $i = 0;
+                while ($i < count($categories)) {
                     $children = self::getChildrenCategories($categories[$i]->id, true, $level + 1, true);
                     if (!empty($children)) {
-                        foreach ($children as $child) {
-                            $tmpCategories[] = $child;
-                        }
+                        array_splice($categories, $i + 1, 0, $children);
+                        $i = $i + count($children);
                     }
+                    $i++;
                 }
-                $categories = $tmpCategories;
             } else {
                 foreach ($categories as &$category) {
                     $category->children = self::getChildrenCategories($category->id, true, $level + 1, false);
@@ -105,22 +102,21 @@ class Category extends Model
     /**
      * Get category list for options in a select input
      */
-    public static function getOptions($selected)
+    public static function getOptions()
     {
         $options = array(
-            array(
+            0 => array(
                 'value' => '',
                 'label' => '---'
             )
         );
 
         $categories = self::getFlatCategories();
-debug();exit;
 
         foreach ($categories as $category) {
-            $options[] = array(
+            $options[$category->id] = array(
                 'value' => $category->id,
-                'label' => str_repeat('&nbsp;', $category->level*8).$category->name
+                'label' => str_repeat('&nbsp;', $category->level * 8).$category->name
             );
         }
 

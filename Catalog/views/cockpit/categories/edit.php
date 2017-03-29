@@ -1,6 +1,6 @@
 <h1 class="page-title">{{ pageTitle }}</h1>
 <div class="actions">
-    {% button url="cockpit_catalog_cateogries" type="default" icon="arrow-left" content="Retour" %}
+    {% button url="cockpit_catalog_categories" type="default" icon="arrow-left" content="Retour" %}
 </div>
 <form id="formCategory" method="post" action="{{ formAction }}" class="form form-horizontal">
     {% input_select name="parent" model="category.parent" options="categoriesOptions" label="Catégorie parente" %}
