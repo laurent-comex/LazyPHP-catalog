@@ -66,16 +66,26 @@ class Category extends Model
             if ($flat) {
                 $i = 0;
                 while ($i < count($categories)) {
-                    $children = self::getChildrenCategories($categories[$i]->id, true, $level + 1, true);
+                    $category = &$categories[$i];
+                    $category->childCount = 0;
+                    $children = self::getChildrenCategories($category->id, true, $level + 1, true);
+
                     if (!empty($children)) {
                         array_splice($categories, $i + 1, 0, $children);
                         $i = $i + count($children);
+
+                        foreach ($children as $child) {
+                            if ($child->parent == $category->id) {
+                                $category->childCount = $category->childCount + 1;
+                            }
+                        }
                     }
                     $i++;
                 }
             } else {
                 foreach ($categories as &$category) {
-                    $category->children = self::getChildrenCategories($category->id, true, $level + 1, false);
+                    $children = self::getChildrenCategories($category->id, true, $level + 1, false);
+                    $category->children = $children;
                 }
             }
         }

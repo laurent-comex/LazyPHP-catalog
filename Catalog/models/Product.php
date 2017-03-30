@@ -13,6 +13,7 @@ class Product extends Model
         'name',
         'description',
         'price',
+        'image',
         'active'
     );
 
@@ -68,6 +69,11 @@ class Product extends Model
 
         if (!isset($this->active) || $this->active == '') {
             $this->active = 0;
+        }
+
+        $errorFile = $this->validFile($this->image, 'image');
+        if ($errorFile !== true) {
+            $this->errors['image'] = $errorFile;
         }
 
         return empty($this->errors);

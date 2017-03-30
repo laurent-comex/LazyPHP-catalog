@@ -7,6 +7,7 @@
         <tr>
             <th width="10%"></th>
             <th>Nom</th>
+            <th>Position</th>
             <th>Actif</th>
             <th width="10%">Actions</th>
         </tr>
@@ -22,14 +23,14 @@ foreach ($params['categories'] as $category) {
         $active = '<i class="fa fa-times"></i>';
     }
 
-
+    $position = '{% button id="category_"'.$category->id.'_down" class="btn-position-down" size="xs" icon="caret-up" %}{% button id="category_"'.$category->id.'_up" class="btn-postion-up" size="xs" icon="caret-down" %}';
 
     echo 
         '<tr>'.
             '<td>'.$level.'</td>'.
             '<td>'.$category->name.'</td>'.
-            '<td>'.$active.'</td>'.
             '<td>'.$position.'</td>'.
+            '<td>'.$active.'</td>'.
             '<td>';?>
                 {% button url="cockpit_catalog_categories_edit_<?php echo $category->id ?>" type="primary" size="xs" icon="pencil" content="" %}
                 {% button url="cockpit_catalog_categories_delete_<?php echo $category->id ?>" type="danger" size="xs" icon="trash-o" confirmation="Vous confirmer vouloir supprimer cette category?" %}<?php
