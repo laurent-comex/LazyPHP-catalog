@@ -2,13 +2,13 @@
 
 namespace Catalog\controllers\cockpit;
 
-use System\Controller;
+use app\controllers\cockpit\CockpitController;
 use System\Session;
 use System\Router;
 
 use Catalog\models\Category;
 
-class CategoriesController extends Controller
+class CategoriesController extends CockpitController
 {
     /*
      * @var Catalog\models\Category

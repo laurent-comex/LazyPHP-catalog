@@ -11,7 +11,7 @@
 
 namespace Catalog\controllers\cockpit;
 
-use System\Controller;
+use app\controllers\cockpit\CockpitController;
 use System\Session;
 use System\Router;
 
@@ -27,7 +27,7 @@ use Catalog\models\Category;
  * @license  GNU
  * @link     http://overconsulting.net
  */
-class ProductsController extends Controller
+class ProductsController extends CockpitController
 {
     /*
      * @var Catalog\models\Product
