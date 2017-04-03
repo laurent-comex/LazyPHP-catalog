@@ -3,7 +3,6 @@
 <div class="box box-success">
     <div class="box-header">
         <h3 class="box-title">Liste des Produits</h3>
-
         <div class="box-tools pull-right">
             {% button url="cockpit_catalog_products_new" type="success" icon="plus" class="btn-xs" content="" %}
         </div>

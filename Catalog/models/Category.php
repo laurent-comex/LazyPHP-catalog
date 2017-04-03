@@ -29,68 +29,8 @@ class Category extends Model
     }
 
     public static function getTableName()
-    {        
-        return 'categories';
-    }
-
-    /**
-     * Get children categories
-     *
-     * @param int $category_id
-     * @param bool $recursive
-     * @param int $level
-     * @param bool $flat
-     *
-     * @return Catalog\models\Category[]
-     */
-    public static function getChildrenCategories($category_id = null, $recursive = true, $level = 0, $flat = false)
     {
-        $categories = array();
-
-        $query = new Query();
-        $query->select('*');
-        if ($category_id === null) {
-            $query->where('parent is null');
-        } else {
-            $query->where('parent = '.$category_id);
-        }
-        $query->order('position');
-        $query->from(self::getTableName());
-        $categories = $query->executeAndFetchAll();
-
-        foreach ($categories as &$category) {
-            $category->level = $level;
-        }
-
-        if ($recursive) {
-            if ($flat) {
-                $i = 0;
-                while ($i < count($categories)) {
-                    $category = &$categories[$i];
-                    $category->childCount = 0;
-                    $children = self::getChildrenCategories($category->id, true, $level + 1, true);
-
-                    if (!empty($children)) {
-                        array_splice($categories, $i + 1, 0, $children);
-                        $i = $i + count($children);
-
-                        foreach ($children as $child) {
-                            if ($child->parent == $category->id) {
-                                $category->childCount = $category->childCount + 1;
-                            }
-                        }
-                    }
-                    $i++;
-                }
-            } else {
-                foreach ($categories as &$category) {
-                    $children = self::getChildrenCategories($category->id, true, $level + 1, false);
-                    $category->children = $children;
-                }
-            }
-        }
-
-        return $categories;
+        return 'categories';
     }
 
     /**
@@ -98,7 +38,7 @@ class Category extends Model
      */
     public static function getNestedCategories()
     {
-        return self::getChildrenCategories(null, true, 0, false);
+        return self::getChildren(null, true, 0, false);
     }
 
     /**
@@ -106,7 +46,7 @@ class Category extends Model
      */
     public static function getFlatCategories()
     {
-        return self::getChildrenCategories(null, true, 0, true);
+        return self::getChildren(null, true, 0, true);
     }
 
     /**
