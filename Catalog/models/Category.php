@@ -16,16 +16,19 @@ class Category extends Model
         'active'
     );
 
-    /**
-     * Set default properties values
-     */
-    public function setDefaultProperties()
+    public function getValidations()
     {
-        parent::setDefaultProperties();
+        $validations = parent::getValidations();
 
-        $this->parent = null;
-        $this->position = 0;
-        $this->active = 1;
+        $validations = array_merge($validations, array(
+            'name' => array(
+                'type' => 'required',
+                'filters' => 'trim',
+                'error' => 'Nom obligatoire'
+            )
+        ));
+
+        return $validations;
     }
 
     public static function getTableName()
@@ -71,34 +74,5 @@ class Category extends Model
         }
 
         return $options;
-    }
-
-    /**
-     * Validate the object and fill $this->errors with error messages
-     *
-     * @return bool
-     */
-    public function valid()
-    {
-        $this->errors = array();
-
-        if (!isset($this->parent) || $this->parent == '') {
-            $this->parent = null;
-        }
-
-        $this->name = trim($this->name);
-        if ($this->name == '') {
-            $this->errors['name'] = 'Nom obligatoire';
-        }
-
-        if (!isset($this->active) || $this->active == '') {
-            $this->active = 0;
-        }
-
-        if (!isset($this->position) || $this->position == '') {
-            $this->position = 0;
-        }
-
-        return empty($this->errors);
     }
 }

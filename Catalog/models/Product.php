@@ -42,40 +42,31 @@ class Product extends Model
 
         $this->category_id = null;
         $this->price = 0.0;
-        $this->active = 1;
     }
 
-    /**
-     * Validate the object and fill $this->errors with error messages
-     *
-     * @return bool
-     */
-    public function valid()
+    public function getValidations()
     {
-        $this->errors = array();
+        $validations = parent::getValidations();
 
-        if (!isset($this->category_id) || $this->category_id == '') {
-            $this->category_id = null;
-        }
+        $validations = array_merge($validations, array(
+            'name' => array(
+                'type' => 'required',
+                'filters' => 'trim',
+                'error' => 'Nom obligatoire'
+            ),
+            'category_id' => array(
+                'type' => 'required'
+                'defaultValue' => null
+            ),
+            'price' => array(
+                'type' => 'required'
+                'defaultValue' => 0.0
+            ),
+            'image' => array(
+                'type' => 'image'
+            )
+        ));
 
-        $this->name = trim($this->name);
-        if ($this->name == '') {
-            $this->errors['name'] = 'Nom obligatoire';
-        }
-
-        if (!isset($this->price) || $this->price == '') {
-            $this->price = 0.0;
-        }
-
-        if (!isset($this->active) || $this->active == '') {
-            $this->active = 0;
-        }
-
-        $errorFile = $this->validFile($this->image, 'image');
-        if ($errorFile !== true) {
-            $this->errors['image'] = $errorFile;
-        }
-
-        return empty($this->errors);
+        return $validations;
     }
 }
