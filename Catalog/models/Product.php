@@ -13,7 +13,6 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'image',
         'active'
     );
 
@@ -44,6 +43,18 @@ class Product extends Model
         $this->price = 0.0;
     }
 
+    public function getAttachedFiles()
+    {
+        return array_merge(
+            parent::getAttachedFiles(),
+            array(
+                'image' => array(
+                    'type' => 'image'
+                )
+            )
+        );
+    }
+
     public function getValidations()
     {
         $validations = parent::getValidations();
@@ -55,15 +66,22 @@ class Product extends Model
                 'error' => 'Nom obligatoire'
             ),
             'category_id' => array(
-                'type' => 'required'
+                'type' => 'required',
                 'defaultValue' => null
             ),
             'price' => array(
-                'type' => 'required'
-                'defaultValue' => 0.0
+                array(
+                    'type' => 'required',
+                    'defaultValue' => 0.0
+                ),
+                array(
+                    'type' => 'float',
+                    'error' => 'Prix invalide'
+                )
             ),
             'image' => array(
-                'type' => 'image'
+                'type' => 'required',
+                'error' => 'Image obligatoire'
             )
         ));
 
