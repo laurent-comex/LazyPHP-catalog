@@ -45,7 +45,7 @@ class Category extends Model
     }
 
     /**
-     * Get categories
+     * Get flat category tree
      */
     public static function getFlatCategories()
     {
