@@ -3,8 +3,6 @@
 namespace Catalog\models;
 
 use System\Model;
-use System\Query;
-use System\Password;
 
 class Product extends Model
 {
