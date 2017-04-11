@@ -50,7 +50,7 @@ class ProductsController extends CockpitController
             $this->product = new Product();
         }
 
-        $categoriesOptions = Category::getOptions($this->product->category_id);
+        $categoriesOptions = Category::findAll($this->product->category_id);
 
         $this->render('edit', array(
             'id' => 0,

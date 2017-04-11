@@ -22,20 +22,20 @@
             <tbody>
 <?php
 foreach ($params['categories'] as $category) {
-    $level = '<span style="font-family: monospace;">'.str_repeat('&nbsp;', $category->level * 4).'|___</span>';
+    $level = '<span style="font-family: monospace;">'.str_repeat('&nbsp;', $category->level * 4).'|__</span>';
 
     if ($category->active == 1) {
-        $active = '<i class="fa fa-check"></i>';
+        $active = '<span class="label label-success">Activé</span>';
     } else {
-        $active = '<i class="fa fa-times"></i>';
+        $active = '<span class="label label-danger">Désactivé</span>';
     }
 
-    $position = '{% button id="category_"'.$category->id.'_down" class="btn-position-down" size="xs" icon="caret-up" %}{% button id="category_"'.$category->id.'_up" class="btn-postion-up" size="xs" icon="caret-down" %}';
+    $position = '{% button id="category_"'.$category->id.'_down" class="btn-position-down" size="xs" icon="arrow-up" %}{% button id="category_"'.$category->id.'_up" class="btn-postion-up" size="xs" icon="arrow-down" %}';
 
     echo
         '<tr>'.
             '<td>'.$level.'</td>'.
-            '<td>'.$category->name.'</td>'.
+            '<td>'.$category->label.'</td>'.
             '<td>'.$position.'</td>'.
             '<td>'.$active.'</td>'.
             '<td>';?>

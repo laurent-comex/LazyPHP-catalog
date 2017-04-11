@@ -8,13 +8,13 @@ class Category extends Model
 {
     protected $permittedColumns = array(
         'parent',
-        'name',
+        'label',
         'description',
         'position',
         'active'
     );
 
-    public function getValidations()
+    /*public function getValidations()
     {
         $validations = parent::getValidations();
 
@@ -27,7 +27,7 @@ class Category extends Model
         ));
 
         return $validations;
-    }
+    }*/
 
     public static function getTableName()
     {
@@ -37,23 +37,23 @@ class Category extends Model
     /**
      * Get category tree
      */
-    public static function getNestedCategories()
+    /*public static function getNestedCategories()
     {
         return self::getChildren(null, true, 0, false);
-    }
+    }*/
 
     /**
      * Get flat category tree
      */
-    public static function getFlatCategories()
+    /*public static function getFlatCategories()
     {
         return self::getChildren(null, true, 0, true);
-    }
+    }*/
 
     /**
      * Get category list for options in a select input
      */
-    public static function getOptions()
+    /*public static function getOptions()
     {
         $options = array(
             0 => array(
@@ -72,5 +72,5 @@ class Category extends Model
         }
 
         return $options;
-    }
+    }*/
 }
