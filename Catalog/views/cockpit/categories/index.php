@@ -35,7 +35,7 @@ foreach ($params['categories'] as $category) {
     echo
         '<tr>'.
             '<td>'.$level.'</td>'.
-            '<td>'.$category->label.'</td>'.
+            '<td>'.$category->name.'</td>'.
             '<td>'.$position.'</td>'.
             '<td>'.$active.'</td>'.
             '<td>';?>

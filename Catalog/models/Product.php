@@ -8,9 +8,11 @@ class Product extends Model
 {
     protected $permittedColumns = array(
         'category_id',
-        'label',
+        'name',
         'description',
         'price',
+        'quantity',
+        'image',
         'active'
     );
 
@@ -76,6 +78,10 @@ class Product extends Model
                     'type' => 'float',
                     'error' => 'Prix invalide'
                 )
+            ),
+            'quantity' => array(
+                'type' => 'float',
+                'error' => 'Quantité invalide'
             )
         ));
 

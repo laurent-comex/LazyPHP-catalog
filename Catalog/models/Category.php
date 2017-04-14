@@ -8,7 +8,7 @@ class Category extends Model
 {
     protected $permittedColumns = array(
         'parent',
-        'label',
+        'name',
         'description',
         'position',
         'active'
@@ -37,23 +37,23 @@ class Category extends Model
     /**
      * Get category tree
      */
-    /*public static function getNestedCategories()
+    public static function getNestedCategories()
     {
         return self::getChildren(null, true, 0, false);
-    }*/
+    }
 
     /**
      * Get flat category tree
      */
-    /*public static function getFlatCategories()
+    public static function getFlatCategories()
     {
         return self::getChildren(null, true, 0, true);
-    }*/
+    }
 
     /**
      * Get category list for options in a select input
      */
-    /*public static function getOptions()
+    public static function getOptions($where = null)
     {
         $options = array(
             0 => array(
@@ -72,5 +72,5 @@ class Category extends Model
         }
 
         return $options;
-    }*/
+    }
 }
