@@ -14,25 +14,11 @@ class Category extends Model
         'active'
     );
 
-    /*public function getValidations()
-    {
-        $validations = parent::getValidations();
-
-        $validations = array_merge($validations, array(
-            'name' => array(
-                'type' => 'required',
-                'filters' => 'trim',
-                'error' => 'Nom obligatoire'
-            )
-        ));
-
-        return $validations;
-    }*/
-
     public static function getTableName()
     {
         return 'categories';
     }
+<<<<<<< HEAD
 
     /**
      * Get category tree
@@ -73,4 +59,6 @@ class Category extends Model
 
         return $options;
     }
+=======
+>>>>>>> 5c1f9a4474ac8153b7206458a56284a57a4f7f8c
 }
