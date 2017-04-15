@@ -18,7 +18,6 @@ class Category extends Model
     {
         return 'categories';
     }
-<<<<<<< HEAD
 
     /**
      * Get category tree
@@ -59,6 +58,4 @@ class Category extends Model
 
         return $options;
     }
-=======
->>>>>>> 5c1f9a4474ac8153b7206458a56284a57a4f7f8c
 }
