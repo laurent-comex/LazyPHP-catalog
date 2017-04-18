@@ -48,6 +48,7 @@ class Category extends Model
         );
 
         $categories = self::getFlatCategories();
+//        debug($categories, false);exit;
 
         foreach ($categories as $category) {
             $options[$category->id] = array(

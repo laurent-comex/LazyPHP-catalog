@@ -17,7 +17,7 @@ class CategoriesController extends CockpitController
 
     public function indexAction()
     {
-        $categories = Category::getFlat();
+        $categories = Category::getFlatCategories();
 
         $this->render('index', array(
             'categories' => $categories,
@@ -31,12 +31,12 @@ class CategoriesController extends CockpitController
             $this->category = new Category();
         }
 
-        $catergories = Category::findAll();
+        $categoriesOptions = Category::getOptions();
 
         $this->render('edit', array(
             'id' => 0,
             'category' => $this->category,
-            'categoriesOptions' => $catergories,
+            'categoriesOptions' => $categoriesOptions,
             'pageTitle' => 'Nouvelle catégorie',
             'formAction' => url('cockpit_catalog_categories_create')
         ));
@@ -48,12 +48,12 @@ class CategoriesController extends CockpitController
             $this->category = Category::findById($id);
         }
 
-        $catergories = Category::findAll();
+        $categoriesOptions = Category::getOptions();
 
         $this->render('edit', array(
             'id' => $id,
             'category' => $this->category,
-            'categoriesOptions' => $catergories,
+            'categoriesOptions' => $categoriesOptions,
             'pageTitle' => 'Modification catégorie n°'.$id,
             'formAction' => Router::url('cockpit_catalog_categories_update_'.$id)
         ));

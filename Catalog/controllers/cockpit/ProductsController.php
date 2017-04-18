@@ -80,20 +80,11 @@ class ProductsController extends CockpitController
 
     public function createAction()
     {
-        if (!isset($this->request->post['active'])) {
-            $this->request->post['active'] = 0;
-        }
-
         $this->product = new Product();
-        $this->product->setData($this->request->post);
 
-        if ($this->product->valid()) {
-            if ($this->product->create((array)$this->product)) {
-                Session::addFlash('Produit ajouté', 'success');
-                $this->redirect('cockpit_catalog_products');
-            } else {
-                Session::addFlash('Erreur insertion base de données', 'danger');
-            };
+        if ($this->product->save($this->request->post)) {
+            Session::addFlash('Produit ajouté', 'success');
+            $this->redirect('cockpit_catalog_products');
         } else {
             Session::addFlash('Erreur(s) dans le formulaire', 'danger');
         }
@@ -103,20 +94,11 @@ class ProductsController extends CockpitController
 
     public function updateAction($id)
     {
-        if (!isset($this->request->post['active'])) {
-            $this->request->post['active'] = 0;
-        }
-
         $this->product = Product::findById($id);
-        $this->product->setData($this->request->post);
 
-        if ($this->product->valid()) {
-            if ($this->product->update((array)$this->product)) {
-                Session::addFlash('Produit modifié', 'success');
-                $this->redirect('cockpit_catalog_products');
-            } else {
-                Session::addFlash('Erreur mise à jour base de données', 'danger');
-            }
+        if ($this->product->save($this->request->post)) {
+            Session::addFlash('Produit modifié', 'success');
+            $this->redirect('cockpit_catalog_products');
         } else {
             Session::addFlash('Erreur(s) dans le formulaire', 'danger');
         }
