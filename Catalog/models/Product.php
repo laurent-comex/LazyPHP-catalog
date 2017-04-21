@@ -12,7 +12,7 @@ class Product extends Model
         'description',
         'price',
         'quantity',
-        'image',
+        'media_id',
         'active'
     );
 
@@ -28,6 +28,11 @@ class Product extends Model
                 'type' => '1',
                 'model' => 'Catalog\\models\\Category',
                 'key' => 'category_id'
+            ),
+            'media' => array(
+                'type' => '1',
+                'model' => 'Media\\models\\Media',
+                'key' => 'media_id'
             )
         );
     }
@@ -41,18 +46,6 @@ class Product extends Model
 
         $this->category_id = null;
         $this->price = 0.0;
-    }
-
-    public function getAttachedFiles()
-    {
-        return array_merge(
-            parent::getAttachedFiles(),
-            array(
-                'image' => array(
-                    'type' => 'image'
-                )
-            )
-        );
     }
 
     public function getValidations()

@@ -13,7 +13,7 @@
     {% input_textarea name="description" model="product.description" label="Description" rows="10" %}
     {% input_text name="price" model="product.price" label="Prix" %}
     {% input_text name="quantity" model="product.quantity" label="Quantité disponible" %}
-    {% input_image name="image" model="product.image" label="Image" %}
+    {% input_media name="media_id" model="user.media_id" label="Image" mediaType="image" mediaCategory="product" %}
     {% input_checkbox name="active" model="product.active" label="Actif" %}
     {% input_submit name="submit" value="save" formId="formProduct" class="btn-primary" icon="save" label="Enregistrer" %}
 {% form_close %}
