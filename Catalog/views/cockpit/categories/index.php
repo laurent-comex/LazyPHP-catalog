@@ -1,8 +1,8 @@
-<h1 class="page-title"><i class="fa fa-object-group"></i> {{ pageTitle }}</h1>
+<h1 class="page-title">{{ titlePage }}</h1>
 
-<div class="box box-success">
+<div class="box box-orange">
     <div class="box-header">
-        <h3 class="box-title">Liste des Catégories</h3>
+        <h3 class="box-title">{{ titleBox }}</h3>
 
         <div class="box-tools pull-right">
             {% button url="cockpit_catalog_categories_new" type="success" icon="plus" content="" class="btn-xs" %}
@@ -39,7 +39,7 @@ foreach ($params['categories'] as $category) {
             '<td>'.$position.'</td>'.
             '<td>'.$active.'</td>'.
             '<td>';?>
-                {% button url="cockpit_catalog_categories_edit_<?php echo $category->id ?>" type="primary" size="xs" icon="pencil" content="" %}
+                {% button url="cockpit_catalog_categories_edit_<?php echo $category->id ?>" type="info" size="xs" icon="pencil" content="" %}
                 {% button url="cockpit_catalog_categories_delete_<?php echo $category->id ?>" type="danger" size="xs" icon="trash-o" confirmation="Vous confirmer vouloir supprimer cette category?" %}
 <?php
     echo

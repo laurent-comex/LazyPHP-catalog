@@ -21,7 +21,8 @@ class CategoriesController extends CockpitController
 
         $this->render('index', array(
             'categories' => $categories,
-            'pageTitle' => 'Catégories'
+            'titlePage' => '<i class="fa fa-object-group fa-orange"></i> Gestion des catégories de produit',
+            'titleBox'  => 'Listes des catégories'
         ));
     }
 
@@ -34,11 +35,12 @@ class CategoriesController extends CockpitController
         $categoriesOptions = Category::getOptions();
 
         $this->render('edit', array(
-            'id' => 0,
-            'category' => $this->category,
+            'id'                => 0,
+            'category'          => $this->category,
             'categoriesOptions' => $categoriesOptions,
-            'pageTitle' => 'Nouvelle catégorie',
-            'formAction' => url('cockpit_catalog_categories_create')
+            'titlePage'         => '<i class="fa fa-object-group fa-orange"></i> Gestion des catégories de produit',
+            'titleBox'          => 'Nouvelle catégorie',
+            'formAction'        => url('cockpit_catalog_categories_create')
         ));
     }
 
@@ -51,11 +53,12 @@ class CategoriesController extends CockpitController
         $categoriesOptions = Category::getOptions();
 
         $this->render('edit', array(
-            'id' => $id,
-            'category' => $this->category,
+            'id'                => $id,
+            'category'          => $this->category,
             'categoriesOptions' => $categoriesOptions,
-            'pageTitle' => 'Modification catégorie n°'.$id,
-            'formAction' => Router::url('cockpit_catalog_categories_update_'.$id)
+            'titlePage'         => '<i class="fa fa-object-group fa-orange"></i> Gestion des catégories de produit',
+            'titleBox'          => 'Modification catégorie n°'.$id,
+            'formAction'        => Router::url('cockpit_catalog_categories_update_'.$id)
         ));
     }
 

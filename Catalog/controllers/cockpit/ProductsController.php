@@ -39,8 +39,9 @@ class ProductsController extends CockpitController
         $products = Product::findAll();
 
         $this->render('index', array(
-            'products' => $products,
-            'pageTitle' => 'Produits'
+            'products'  => $products,
+            'titlePage' => '<i class="fa fa-product-hunt fa-orange"></i> Gestion des produits',
+            'titleBox'  => 'Listes des produits'
         ));
     }
 
@@ -53,11 +54,12 @@ class ProductsController extends CockpitController
         $categoriesOptions = Category::getOptions();
 
         $this->render('edit', array(
-            'id' => 0,
-            'product' => $this->product,
+            'id'                => 0,
+            'product'           => $this->product,
             'categoriesOptions' => $categoriesOptions,
-            'pageTitle' => 'Nouveau produit',
-            'formAction' => Router::url('cockpit_catalog_products_create')
+            'titlePage'         => '<i class="fa fa-product-hunt fa-orange"></i> Gestion des produits',
+            'titleBox'          => 'Nouveau produit',
+            'formAction'        => Router::url('cockpit_catalog_products_create')
         ));
     }
 
@@ -70,11 +72,12 @@ class ProductsController extends CockpitController
         $categoriesOptions = Category::getOptions($this->product->category_id);
 
         $this->render('edit', array(
-            'id' => $id,
-            'product' => $this->product,
+            'id'                => $id,
+            'product'           => $this->product,
             'categoriesOptions' => $categoriesOptions,
-            'pageTitle' => 'Modification produit n°'.$id,
-            'formAction' => Router::url('cockpit_catalog_products_update_'.$id)
+            'titlePage'         => '<i class="fa fa-product-hunt fa-orange"></i> Gestion des produits',
+            'titleBox'          => 'Modification produit n°'.$id,
+            'formAction'        => Router::url('cockpit_catalog_products_update_'.$id)
         ));
     }
 

@@ -1,8 +1,8 @@
-<h1 class="page-title"><i class="fa fa-product-hunt"></i> {{ pageTitle }}</h1>
+<h1 class="page-title">{{ titlePage }}</h1>
 
-<div class="box box-success">
+<div class="box box-orange">
     <div class="box-header">
-        <h3 class="box-title">Liste des Produits</h3>
+        <h3 class="box-title">{{ titleBox }}</h3>
         <div class="box-tools pull-right">
             {% button url="cockpit_catalog_products_new" type="success" icon="plus" class="btn-xs" content="" %}
         </div>
@@ -38,7 +38,7 @@ foreach ($params['products'] as $product) {
             '<td>'.$product->price.'</td>'.
             '<td>'.$active.'</td>'.
             '<td>';?>
-                {% button url="cockpit_catalog_products_edit_<?php echo $product->id ?>" type="primary" size="xs" icon="pencil" content="" %}
+                {% button url="cockpit_catalog_products_edit_<?php echo $product->id ?>" type="info" size="xs" icon="pencil" content="" %}
                 {% button url="cockpit_catalog_products_delete_<?php echo $product->id ?>" type="danger" size="xs" icon="trash-o" confirmation="Vous confirmer vouloir supprimer ce produit?" %}
 <?php
     echo

@@ -1,8 +1,8 @@
-<h1 class="page-title"><i class="fa fa-object-group"></i> {{ pageTitle }}</h1>
+<h1 class="page-title">{{ titlePage }}</h1>
 
-<div class="box box-success">
+<div class="box box-orange">
     <div class="box-header">
-        <h3 class="box-title">Liste des Catégories</h3>
+        <h3 class="box-title">{{ titleBox }}</h3>
 
         <div class="box-tools pull-right">
             {% button url="cockpit_catalog_categories" class="btn btn-xs" type="default" icon="arrow-left" content="" %}
