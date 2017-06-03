@@ -2,7 +2,7 @@
 
 namespace Catalog\models;
 
-use System\Model;
+use Core\Model;
 
 class Category extends Model
 {
