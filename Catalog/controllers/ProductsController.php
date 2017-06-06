@@ -11,10 +11,10 @@
 
 namespace Catalog\controllers;
 
-use System\Controller;
-use System\Session;
-use System\Query;
-use System\Router;
+use Core\Controller;
+use Core\Session;
+use Core\Query;
+use Core\Router;
 
 use Catalog\models\Product;
 

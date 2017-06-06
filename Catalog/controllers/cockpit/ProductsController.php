@@ -12,8 +12,8 @@
 namespace Catalog\controllers\cockpit;
 
 use app\controllers\cockpit\CockpitController;
-use System\Session;
-use System\Router;
+use Core\Session;
+use Core\Router;
 
 use Catalog\models\Product;
 use Catalog\models\Category;
