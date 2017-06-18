@@ -19,7 +19,7 @@ class CategoriesController extends CockpitController
     {
         $categories = Category::getFlatCategories();
 
-        $this->render('index', array(
+        $this->render('catalog::categories::index', array(
             'categories' => $categories,
             'titlePage' => '<i class="fa fa-object-group fa-orange"></i> Gestion des catégories de produit',
             'titleBox'  => 'Listes des catégories'
@@ -34,7 +34,7 @@ class CategoriesController extends CockpitController
 
         $categoriesOptions = Category::getOptions();
 
-        $this->render('edit', array(
+        $this->render('catalog::categories::edit', array(
             'id'                => 0,
             'category'          => $this->category,
             'categoriesOptions' => $categoriesOptions,
@@ -52,7 +52,7 @@ class CategoriesController extends CockpitController
 
         $categoriesOptions = Category::getOptions();
 
-        $this->render('edit', array(
+        $this->render('catalog::categories::edit', array(
             'id'                => $id,
             'category'          => $this->category,
             'categoriesOptions' => $categoriesOptions,

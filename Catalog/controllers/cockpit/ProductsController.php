@@ -38,7 +38,7 @@ class ProductsController extends CockpitController
     {
         $products = Product::findAll();
 
-        $this->render('index', array(
+        $this->render('catalog::products::index', array(
             'products'  => $products,
             'titlePage' => '<i class="fa fa-product-hunt fa-orange"></i> Gestion des produits',
             'titleBox'  => 'Listes des produits'
@@ -53,7 +53,7 @@ class ProductsController extends CockpitController
 
         $categoriesOptions = Category::getOptions();
 
-        $this->render('edit', array(
+        $this->render('catalog::products::edit', array(
             'id'                => 0,
             'product'           => $this->product,
             'categoriesOptions' => $categoriesOptions,
@@ -71,7 +71,7 @@ class ProductsController extends CockpitController
 
         $categoriesOptions = Category::getOptions($this->product->category_id);
 
-        $this->render('edit', array(
+        $this->render('catalog::products::edit', array(
             'id'                => $id,
             'product'           => $this->product,
             'categoriesOptions' => $categoriesOptions,
