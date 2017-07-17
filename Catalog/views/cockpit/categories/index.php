@@ -5,7 +5,7 @@
         <h3 class="box-title">{{ titleBox }}</h3>
 
         <div class="box-tools pull-right">
-            {% button url="cockpit_catalog_categories_new" type="success" icon="plus" content="" class="btn-xs" %}
+            {% button url="cockpit_catalog_categories_new" type="success" icon="plus" size="sm" content="" %}
         </div>
     </div>
     <div class="box-body">
@@ -39,8 +39,8 @@ foreach ($params['categories'] as $category) {
             '<td>'.$position.'</td>'.
             '<td>'.$active.'</td>'.
             '<td>';?>
-                {% button url="cockpit_catalog_categories_edit_<?php echo $category->id ?>" type="info" size="xs" icon="pencil" content="" %}
-                {% button url="cockpit_catalog_categories_delete_<?php echo $category->id ?>" type="danger" size="xs" icon="trash-o" confirmation="Vous confirmer vouloir supprimer cette category?" %}
+                {% button url="cockpit_catalog_categories_edit_<?php echo $category->id ?>" type="info" size="sm" icon="pencil" content="" %}
+                {% button url="cockpit_catalog_categories_delete_<?php echo $category->id ?>" type="danger" size="sm" icon="trash-o" confirmation="Vous confirmer vouloir supprimer cette category?" %}
 <?php
     echo
             '</td>'.

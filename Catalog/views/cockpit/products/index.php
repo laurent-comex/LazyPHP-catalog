@@ -4,7 +4,7 @@
     <div class="box-header">
         <h3 class="box-title">{{ titleBox }}</h3>
         <div class="box-tools pull-right">
-            {% button url="cockpit_catalog_products_new" type="success" icon="plus" class="btn-xs" content="" %}
+            {% button url="cockpit_catalog_products_new" type="success" icon="plus" size="sm" content="" %}
         </div>
     </div>
     <div class="box-body">
