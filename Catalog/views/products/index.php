@@ -20,7 +20,7 @@ foreach ($params['products'] as $product) {
     echo '<td>'.$product->name.'</td>';
     echo '<td>'.$product->price.'</td>';
     echo '<td>';?>
-    {% button link="catalog_products_show" type="success" size="xs" icon="eye-o" content="" %}<?php
+    {% button link="catalog_products_show" type="success" size="sm" icon="eye-o" content="" %}<?php
     echo '</td>';
     echo '</tr>';
 }

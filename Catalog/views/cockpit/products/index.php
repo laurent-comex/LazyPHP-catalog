@@ -38,8 +38,8 @@ foreach ($params['products'] as $product) {
             '<td>'.$product->price.'</td>'.
             '<td>'.$active.'</td>'.
             '<td>';?>
-                {% button url="cockpit_catalog_products_edit_<?php echo $product->id ?>" type="info" size="xs" icon="pencil" content="" %}
-                {% button url="cockpit_catalog_products_delete_<?php echo $product->id ?>" type="danger" size="xs" icon="trash-o" confirmation="Vous confirmer vouloir supprimer ce produit?" %}
+                {% button url="cockpit_catalog_products_edit_<?php echo $product->id ?>" type="info" size="sm" icon="pencil" content="" %}
+                {% button url="cockpit_catalog_products_delete_<?php echo $product->id ?>" type="danger" size="sm" icon="trash-o" confirmation="Vous confirmer vouloir supprimer ce produit?" %}
 <?php
     echo
             '</td>'.

@@ -30,7 +30,7 @@ foreach ($params['categories'] as $category) {
         $active = '<span class="label label-danger">Désactivé</span>';
     }
 
-    $position = '{% button id="category_"'.$category->id.'_down" class="btn-position-down" size="xs" icon="arrow-up" %}{% button id="category_"'.$category->id.'_up" class="btn-postion-up" size="xs" icon="arrow-down" %}';
+    $position = '{% button id="category_"'.$category->id.'_down" class="btn-position-down" size="sm" icon="arrow-up" %}{% button id="category_"'.$category->id.'_up" class="btn-postion-up" size="sm" icon="arrow-down" %}';
 
     echo
         '<tr>'.

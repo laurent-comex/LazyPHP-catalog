@@ -3,11 +3,11 @@
     <div class="box-header">
         <h3 class="box-title">{{ titleBox }}</h3>
         <div class="box-tools pull-right">
-            {% button url="cockpit_catalog_products" type="default" icon="arrow-left" size="xs" content="" %}
+            {% button url="cockpit_catalog_products" type="secondary" icon="arrow-left" size="sm" content="" %}
         </div>
     </div>
     <div class="box-body">
-{% form_open id="formProduct" action="formAction" class="form-horizontal" %}
+{% form_open id="formProduct" action="formAction" %}
     {% input_select name="category_id" model="product.category_id" options="categoriesOptions" label="Catégorie" %}
     {% input_text name="name" model="product.name" label="Nom" %}
     {% input_textarea name="description" model="product.description" label="Description" rows="10" %}
