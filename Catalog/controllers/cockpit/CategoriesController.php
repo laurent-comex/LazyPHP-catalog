@@ -22,7 +22,7 @@ class CategoriesController extends CockpitController
         $this->render('catalog::categories::index', array(
             'categories' => $categories,
             'titlePage' => '<i class="fa fa-object-group fa-orange"></i> Gestion des catégories de produit',
-            'titleBox'  => 'Listes des catégories'
+            'titleBox'  => 'Liste des catégories'
         ));
     }
 

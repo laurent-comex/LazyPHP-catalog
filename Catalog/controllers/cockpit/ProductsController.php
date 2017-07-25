@@ -41,7 +41,7 @@ class ProductsController extends CockpitController
         $this->render('catalog::products::index', array(
             'products'  => $products,
             'titlePage' => '<i class="fa fa-product-hunt fa-orange"></i> Gestion des produits',
-            'titleBox'  => 'Listes des produits'
+            'titleBox'  => 'Liste des produits'
         ));
     }
 
