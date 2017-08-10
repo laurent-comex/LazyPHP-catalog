@@ -73,13 +73,13 @@ class CategoriesController extends CockpitController
 
         if ($this->category->valid()) {
             if ($this->category->create((array)$this->category)) {
-                Session::addFlash('Catégorie ajoutée', 'success');
+                $this->addFlash('Catégorie ajoutée', 'success');
                 $this->redirect('cockpit_catalog_categories');
             } else {
-                Session::addFlash('Erreur insertion base de données', 'danger');
+                $this->addFlash('Erreur insertion base de données', 'danger');
             };
         } else {
-            Session::addFlash('Erreur(s) dans le formulaire', 'danger');
+            $this->addFlash('Erreur(s) dans le formulaire', 'danger');
         }
 
         $this->newAction();
@@ -96,13 +96,13 @@ class CategoriesController extends CockpitController
 
         if ($this->category->valid()) {
             if ($this->category->update((array)$this->category)) {
-                Session::addFlash('Catégorie modifiée', 'success');
+                $this->addFlash('Catégorie modifiée', 'success');
                 $this->redirect('cockpit_catalog_categories');
             } else {
-                Session::addFlash('Erreur mise à jour base de données', 'danger');
+                $this->addFlash('Erreur mise à jour base de données', 'danger');
             }
         } else {
-            Session::addFlash('Erreur(s) dans le formulaire', 'danger');
+            $this->addFlash('Erreur(s) dans le formulaire', 'danger');
         }
 
         $this->editAction($id);
@@ -112,7 +112,7 @@ class CategoriesController extends CockpitController
     {
         $category = Category::findById($id);
         $category->delete();
-        Session::addFlash('Catégorie supprimé', 'success');
+        $this->addFlash('Catégorie supprimé', 'success');
         $this->redirect('cockpit_catalog_categories');
     }
 }

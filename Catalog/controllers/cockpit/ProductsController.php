@@ -86,10 +86,10 @@ class ProductsController extends CockpitController
         $this->product = new Product();
 
         if ($this->product->save($this->request->post)) {
-            Session::addFlash('Produit ajouté', 'success');
+            $this->addFlash('Produit ajouté', 'success');
             $this->redirect('cockpit_catalog_products');
         } else {
-            Session::addFlash('Erreur(s) dans le formulaire', 'danger');
+            $this->addFlash('Erreur(s) dans le formulaire', 'danger');
         }
 
         $this->newAction();
@@ -100,10 +100,10 @@ class ProductsController extends CockpitController
         $this->product = Product::findById($id);
 
         if ($this->product->save($this->request->post)) {
-            Session::addFlash('Produit modifié', 'success');
+            $this->addFlash('Produit modifié', 'success');
             $this->redirect('cockpit_catalog_products');
         } else {
-            Session::addFlash('Erreur(s) dans le formulaire', 'danger');
+            $this->addFlash('Erreur(s) dans le formulaire', 'danger');
         }
 
         $this->editAction($id);
@@ -113,7 +113,7 @@ class ProductsController extends CockpitController
     {
         $product = Product::findById($id);
         $product->delete();
-        Session::addFlash('Produit supprimé', 'success');
+        $this->addFlash('Produit supprimé', 'success');
         $this->redirect('cockpit_catalog_products');
     }
 }
