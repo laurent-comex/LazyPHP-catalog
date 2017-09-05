@@ -10,6 +10,11 @@ use Catalog\models\Category;
 
 class CategoriesController extends CockpitController
 {
+    /**
+     * @var string
+     */
+    private $pageTitle = '<i class="fa fa-object-group fa-orange"></i> Gestion des catégories de produit';
+
     /*
      * @var Catalog\models\Category
      */
@@ -19,11 +24,14 @@ class CategoriesController extends CockpitController
     {
         $categories = Category::getFlatCategories();
 
-        $this->render('catalog::categories::index', array(
-            'categories' => $categories,
-            'titlePage' => '<i class="fa fa-object-group fa-orange"></i> Gestion des catégories de produit',
-            'titleBox'  => 'Liste des catégories'
-        ));
+        $this->render(
+            'catalog::categories::index',
+            array(
+                'categories' => $categories,
+                'pageTitle' => $this->pageTitle,
+                'boxTitle' => 'Liste des catégories'
+            )
+        );
     }
 
     public function newAction()
@@ -34,14 +42,16 @@ class CategoriesController extends CockpitController
 
         $categoriesOptions = Category::getOptions();
 
-        $this->render('catalog::categories::edit', array(
-            'id'                => 0,
-            'category'          => $this->category,
-            'categoriesOptions' => $categoriesOptions,
-            'titlePage'         => '<i class="fa fa-object-group fa-orange"></i> Gestion des catégories de produit',
-            'titleBox'          => 'Nouvelle catégorie',
-            'formAction'        => url('cockpit_catalog_categories_create')
-        ));
+        $this->render(
+            'catalog::categories::edit',
+            array(
+                'id' => 0,
+                'category' => $this->category,
+                'categoriesOptions' => $categoriesOptions,
+                'pageTitle' => $this->pageTitle,
+                'boxTitle' => 'Nouvelle catégorie',
+                'formAction' => Router::url('cockpit_catalog_categories_create')
+            ));
     }
 
     public function editAction($id)
@@ -52,32 +62,30 @@ class CategoriesController extends CockpitController
 
         $categoriesOptions = Category::getOptions();
 
-        $this->render('catalog::categories::edit', array(
-            'id'                => $id,
-            'category'          => $this->category,
-            'categoriesOptions' => $categoriesOptions,
-            'titlePage'         => '<i class="fa fa-object-group fa-orange"></i> Gestion des catégories de produit',
-            'titleBox'          => 'Modification catégorie n°'.$id,
-            'formAction'        => Router::url('cockpit_catalog_categories_update_'.$id)
-        ));
+        $this->render(
+            'catalog::categories::edit',
+            array(
+                'id' => $id,
+                'category' => $this->category,
+                'categoriesOptions' => $categoriesOptions,
+                'pageTitle' => $this->pageTitle,
+                'boxTitle' => 'Modification catégorie n°'.$id,
+                'formAction' => Router::url('cockpit_catalog_categories_update_'.$id)
+            )
+        );
     }
 
     public function createAction()
     {
+        $this->category = new Category();
+
         if (!isset($this->request->post['active'])) {
             $this->request->post['active'] = 0;
         }
 
-        $this->category = new Category();
-        $this->category->setData($this->request->post);
-
-        if ($this->category->valid()) {
-            if ($this->category->create((array)$this->category)) {
-                $this->addFlash('Catégorie ajoutée', 'success');
-                $this->redirect('cockpit_catalog_categories');
-            } else {
-                $this->addFlash('Erreur insertion base de données', 'danger');
-            };
+        if ($this->category->save($this->request->post)) {
+            $this->addFlash('Catégorie ajoutée', 'success');
+            $this->redirect('cockpit_catalog_categories');
         } else {
             $this->addFlash('Erreur(s) dans le formulaire', 'danger');
         }
@@ -87,20 +95,15 @@ class CategoriesController extends CockpitController
 
     public function updateAction($id)
     {
+        $this->category = Category::findById($id);
+
         if (!isset($this->request->post['active'])) {
             $this->request->post['active'] = 0;
         }
 
-        $this->category = Category::findById($id);
-        $this->category->setData($this->request->post);
-
-        if ($this->category->valid()) {
-            if ($this->category->update((array)$this->category)) {
-                $this->addFlash('Catégorie modifiée', 'success');
-                $this->redirect('cockpit_catalog_categories');
-            } else {
-                $this->addFlash('Erreur mise à jour base de données', 'danger');
-            }
+        if ($this->category->save($this->request->post)) {
+            $this->addFlash('Catégorie modifiée', 'success');
+            $this->redirect('cockpit_catalog_categories');
         } else {
             $this->addFlash('Erreur(s) dans le formulaire', 'danger');
         }
