@@ -32,17 +32,25 @@ class ProductsController extends CockpitController
     /*
      * @var Catalog\models\Product
      */
-    public $product = null;
+    private $product = null;
+
+    /*
+     * @var string
+     */
+    private $pageTitle = null;
 
     public function indexAction()
     {
         $products = Product::findAll();
 
-        $this->render('catalog::products::index', array(
-            'products'  => $products,
-            'titlePage' => '<i class="fa fa-product-hunt fa-orange"></i> Gestion des produits',
-            'titleBox'  => 'Liste des produits'
-        ));
+        $this->render(
+            'catalog::products::index',
+            array(
+                'products' => $products,
+                'pageTitle' => $this->pageTitle,
+                'boxTitle' => 'Liste des produits'
+            )
+        );
     }
 
     public function newAction()
@@ -53,14 +61,17 @@ class ProductsController extends CockpitController
 
         $categoriesOptions = Category::getOptions();
 
-        $this->render('catalog::products::edit', array(
-            'id'                => 0,
-            'product'           => $this->product,
-            'categoriesOptions' => $categoriesOptions,
-            'titlePage'         => '<i class="fa fa-product-hunt fa-orange"></i> Gestion des produits',
-            'titleBox'          => 'Nouveau produit',
-            'formAction'        => Router::url('cockpit_catalog_products_create')
-        ));
+        $this->render(
+            'catalog::products::edit',
+            array(
+                'id' => 0,
+                'product' => $this->product,
+                'categoriesOptions' => $categoriesOptions,
+                'pageTitle' => $this->pageTitle,
+                'boxTitle' => 'Nouveau produit',
+                'formAction' => Router::url('cockpit_catalog_products_create')
+            )
+        );
     }
 
     public function editAction($id)
@@ -71,14 +82,17 @@ class ProductsController extends CockpitController
 
         $categoriesOptions = Category::getOptions($this->product->category_id);
 
-        $this->render('catalog::products::edit', array(
-            'id'                => $id,
-            'product'           => $this->product,
-            'categoriesOptions' => $categoriesOptions,
-            'titlePage'         => '<i class="fa fa-product-hunt fa-orange"></i> Gestion des produits',
-            'titleBox'          => 'Modification produit n°'.$id,
-            'formAction'        => Router::url('cockpit_catalog_products_update_'.$id)
-        ));
+        $this->render(
+            'catalog::products::edit',
+            array(
+                'id' => $id,
+                'product' => $this->product,
+                'categoriesOptions' => $categoriesOptions,
+                'pageTitle' => $this->pageTitle,
+                'titleBox' => 'Modification produit n°'.$id,
+                'formAction' => Router::url('cockpit_catalog_products_update_'.$id)
+            )
+        );
     }
 
     public function createAction()

@@ -1,8 +1,8 @@
-<h1 class="page-title">{{ titlePage }}</h1>
+<h1 class="page-title">{{ pageTitle }}</h1>
 
 <div class="box box-orange">
     <div class="box-header">
-        <h3 class="box-title">{{ titleBox }}</h3>
+        <h3 class="box-title">{{ boxTitle }}</h3>
 
         <div class="box-tools pull-right">
             {% button url="cockpit_catalog_categories" type="secondary" size="sm" icon="arrow-left" content="" %}
