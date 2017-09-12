@@ -4,7 +4,7 @@
     <div class="box-header">
         <h3 class="box-title">{{ boxTitle }}</h3>
         <div class="box-tools pull-right">
-            {% button url="cockpit_catalog_products_new" type="success" icon="plus" size="sm" hint="Retour" %}
+            {% button url="cockpit_catalog_products_new" type="success" icon="plus" size="sm" hint="Ajouter" %}
         </div>
     </div>
     <div class="box-body">
@@ -38,8 +38,8 @@ foreach ($params['products'] as $product) {
             '<td>'.$product->price.'</td>'.
             '<td>'.$active.'</td>'.
             '<td>';?>
-                {% button url="cockpit_catalog_products_edit_<?php echo $product->id ?>" type="info" size="sm" icon="pencil" hint="Retour" %}
-                {% button url="cockpit_catalog_products_delete_<?php echo $product->id ?>" type="danger" size="sm" icon="trash-o" hint="Retour" confirmation="Vous confirmer vouloir supprimer ce produit?" %}
+                {% button url="cockpit_catalog_products_edit_<?php echo $product->id ?>" type="info" size="sm" icon="pencil" hint="Modifier" %}
+                {% button url="cockpit_catalog_products_delete_<?php echo $product->id ?>" type="danger" size="sm" icon="trash-o" confirmation="Vous confirmer vouloir supprimer ce produit?" hint="Supprimer" %}
 <?php
     echo
             '</td>'.
