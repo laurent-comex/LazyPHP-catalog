@@ -1,6 +1,6 @@
 <h1 class="page-title">Produits</h1>
 <br />
-<table class="table table-hover">
+<table class="table table-hover table-sm">
     <thead>
         <tr>
             <th width="1%">ID</th>
