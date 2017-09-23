@@ -29,7 +29,7 @@ use Catalog\models\Product;
  */
 class ProductsController extends Controller
 {
-    /*
+    /**
      * @var Catalog\models\Product
      */
     public $product = null;
@@ -38,9 +38,12 @@ class ProductsController extends Controller
     {
         $products = Product::findAll();
 
-        $this->render('index', array(
-            'products' => $products
-        ));
+        $this->render(
+            'catalog::products::index',
+            array(
+                'products' => $products
+            )
+        );
     }
 
     public function showAction()
@@ -49,10 +52,13 @@ class ProductsController extends Controller
             $this->product = Product::findById($id);
         }
 
-        $this->render('edit', array(
-            'id' => $id,
-            'product' => $this->product,
-            'pageTitle' => 'Produit n°'.$id
-        ));
+        $this->render(
+            'catalog::products::show',
+            array(
+                'id' => $id,
+                'product' => $this->product,
+                'pageTitle' => 'Produit n°'.$id
+            )
+        );
     }
 }

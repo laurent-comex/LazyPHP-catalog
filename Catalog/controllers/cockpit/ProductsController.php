@@ -29,15 +29,15 @@ use Catalog\models\Category;
  */
 class ProductsController extends CockpitController
 {
-    /*
+    /**
      * @var Catalog\models\Product
      */
     private $product = null;
 
-    /*
+    /**
      * @var string
      */
-    private $pageTitle = null;
+    private $pageTitle = '<i class="fa fa-list"></i> Produits';
 
     public function indexAction()
     {

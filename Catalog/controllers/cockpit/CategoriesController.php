@@ -11,14 +11,14 @@ use Catalog\models\Category;
 class CategoriesController extends CockpitController
 {
     /**
+     * @var Catalog\models\Category
+     */
+    private $category = null;
+
+    /**
      * @var string
      */
     private $pageTitle = '<i class="fa fa-object-group fa-orange"></i> Gestion des catégories de produit';
-
-    /*
-     * @var Catalog\models\Category
-     */
-    public $category = null;
 
     public function indexAction()
     {
