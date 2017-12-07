@@ -6,9 +6,9 @@ use app\controllers\cockpit\CockpitController;
 use Core\Session;
 use Core\Router;
 
-use Catalog\models\Category;
+use Catalog\models\ProductCategory;
 
-class CategoriesController extends CockpitController
+class ProductcategoriesController extends CockpitController
 {
     /**
      * @var Catalog\models\Category

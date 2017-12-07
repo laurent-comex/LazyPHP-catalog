@@ -4,19 +4,20 @@ namespace Catalog\models;
 
 use Core\Model;
 
-class Category extends Model
+class ProductCategory extends Model
 {
     protected $permittedColumns = array(
-        'parent',
-        'name',
+        'site_id',
+        'label',
         'description',
+        'parent',
         'position',
         'active'
     );
 
     public static function getTableName()
     {
-        return 'categories';
+        return 'productcategories';
     }
 
     /**

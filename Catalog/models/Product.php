@@ -7,8 +7,9 @@ use Core\Model;
 class Product extends Model
 {
     protected $permittedColumns = array(
-        'category_id',
-        'name',
+        'site_id',
+        'productcategory_id',
+        'label',
         'description',
         'price',
         'quantity',
@@ -24,10 +25,15 @@ class Product extends Model
     public function getAssociations()
     {
         return array(
-            'category' => array(
+            'site' => array(
+                'type' => '1',
+                'model' => 'Core\\models\\Site',
+                'key' => 'site_id'
+            ),
+            'productcategory' => array(
                 'type' => '1',
                 'model' => 'Catalog\\models\\Category',
-                'key' => 'category_id'
+                'key' => 'productcategory_id'
             ),
             'media' => array(
                 'type' => '1',
