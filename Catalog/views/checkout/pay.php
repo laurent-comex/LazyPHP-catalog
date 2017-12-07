@@ -16,9 +16,7 @@ Total à payer : {{ amount }}
     data-zip-code="false"
     data-currency="eur"
     data-email="{{ email }}"
-    data-label="Payer par carte"
-    data-billing-address="false"
-    data-shipping-address="false">
+    data-label="Payer par carte">
   </script>
 </form>
 <br />

@@ -8,21 +8,30 @@ use Core\Query;
 use Core\Router;
 
 use Catalog\models\Payment;
+use Catalog\models\Cart;
 
 class CheckoutController extends FrontController
 {
-    public function indexAction()
+    public function cartAction()
     {
-        $cart = new \Catalog\models\Cart();
-        $this->session->set('cart', $cart); 
-
         $cart = $this->session->get('cart');
-        $cart->addItem(
-            new \Catalog\models\Product(
-                array('id' => 1, 'name' => 'P1', 'description' => 'Product 1', 'price' => 111.11)
-            ),
-            1
+        if ($cart === null) {
+            $cart = new Cart();
+        }
+
+        $this->session->set('cart', $cart);
+
+        $this->render(
+            'catalog::checkout::cart',
+            array(
+                'cart' => $cart
+            )
         );
+    }
+
+    public function payAction()
+    {
+        $cart = Cart::load();
 
         if ($cart != null) {
             $amount = $cart->getTotal();
@@ -57,7 +66,7 @@ class CheckoutController extends FrontController
             }
 
             $this->render(
-                'catalog::checkout::index',
+                'catalog::checkout::pay',
                 array(
                     'stripePublishableKey' => STRIPE_PUBLISHABLE_KEY,
                     'email' => $email,

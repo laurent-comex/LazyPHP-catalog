@@ -3,6 +3,7 @@
 namespace Catalog\models;
 
 use Core\Model;
+use Core\Session;
 
 class CartItem
 {
@@ -35,9 +36,18 @@ class Cart
      */
     public $items = array();
 
-    public function __construct()
+    public static function load()
     {
+        $cart = Session::get('cart');
+        if ($cart === null) {
+            $cart = new Cart();
+        }
+        return $cart;
+    }
 
+    public function save()
+    {
+        Session::set('cart', $this);
     }
 
     /**
@@ -47,7 +57,19 @@ class Cart
      */
     public function addItem($product, $quantity = 1)
     {
-        $this->items[] = new CartItem($product, $quantity);
+        $itemIndex = false;
+        foreach ($this->items as $index => $item) {
+            if ($item->product->id == $product->id) {
+                $itemIndex = $index;
+                break;
+            }
+        }
+
+        if ($itemIndex === false) {
+            $this->items[] = new CartItem($product, $quantity);
+        } else {
+            $this->items[$itemIndex]->quantity = $this->items[$itemIndex]->quantity + $quantity;
+        }
     }
 
     /**
@@ -56,6 +78,7 @@ class Cart
      */
     public function deleteItem($product)
     {
+        var_dump($product);
         foreach ($this->items as $index => $item) {
             if ($item->product->id == $product->id) {
                 array_splice($this->items, $index, 1);
