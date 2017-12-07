@@ -20,6 +20,27 @@ class ProductCategory extends Model
         return 'productcategories';
     }
 
+    public function setDefaultProperties()
+    {
+        parent::setDefaultProperties();
+
+        $this->active = 1;
+    }
+
+    public function getValidations()
+    {
+        return array_merge(
+            parent::getValidations(),
+            array(
+                'label' => array(
+                    'type' => 'required',
+                    'filters' => array('trim'),
+                    'error' => 'Nom obligatoire'
+                )
+            )
+        );
+    }
+
     /**
      * Get category tree
      */
@@ -53,7 +74,7 @@ class ProductCategory extends Model
         foreach ($categories as $category) {
             $options[$category->id] = array(
                 'value' => $category->id,
-                'label' => str_repeat('&nbsp;', $category->level * 8).$category->name
+                'label' => str_repeat('&nbsp;', $category->level * 8).$category->label
             );
         }
 

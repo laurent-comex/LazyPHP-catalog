@@ -16,17 +16,17 @@ class Orders extends Model
         return array(
             'site' => array(
                 'type' => '1',
-                'model' => 'Core\\models\\Site',
+                'model' => 'Site',
                 'key' => 'site_id'
             ),
             'user' => array(
                 'type' => '1',
-                'model' => 'Auth\\models\\User',
+                'model' => 'User',
                 'key' => 'user_id'
             ),
             'orderdetails' => array(
                 'type' => '*',
-                'model' => 'Catalog\\models\\OrderDetail',
+                'model' => 'OrderDetail',
                 'key' => 'order_id'
             )
         );

@@ -16,7 +16,7 @@ use Core\Session;
 use Core\Router;
 
 use Catalog\models\Product;
-use Catalog\models\Category;
+use Catalog\models\ProductCategory;
 
 /**
  * Products controller
@@ -41,7 +41,8 @@ class ProductsController extends CockpitController
 
     public function indexAction()
     {
-        $products = Product::findAll();
+        $productClass = $this->loadModel('Product');
+        $products = $productClass::findAll();
 
         $this->render(
             'catalog::products::index',
@@ -55,18 +56,25 @@ class ProductsController extends CockpitController
 
     public function newAction()
     {
+        $productClass = $this->loadModel('Product');
         if ($this->product === null) {
-            $this->product = new Product();
+            $this->product = new $productClass();
         }
 
-        $categoriesOptions = Category::getOptions();
+        $productcategoryClass = $this->loadModel('ProductCategory');
+        $productcategoryOptions = $productcategoryClass::getOptions();
+
+        $siteClass = $this->loadModel('Site');
+        $siteOptions = $siteClass::getOptions();
 
         $this->render(
             'catalog::products::edit',
             array(
                 'id' => 0,
                 'product' => $this->product,
-                'categoriesOptions' => $categoriesOptions,
+                'productcategoryOptions' => $productcategoryOptions,
+                'siteOptions' => $siteOptions,
+                'selectSite' => $this->current_user->site_id === null,
                 'pageTitle' => $this->pageTitle,
                 'boxTitle' => 'Nouveau produit',
                 'formAction' => Router::url('cockpit_catalog_products_create')
@@ -76,18 +84,25 @@ class ProductsController extends CockpitController
 
     public function editAction($id)
     {
+        $productClass = $this->loadModel('Product');
         if ($this->product === null) {
-            $this->product = Product::findById($id);
+            $this->product = $productClass::findById($id);
         }
 
-        $categoriesOptions = Category::getOptions($this->product->category_id);
+        $productcategoryClass = $this->loadModel('ProductCategory');
+        $productcategoryOptions = $productcategoryClass::getOptions();
+
+        $siteClass = $this->loadModel('Site');
+        $siteOptions = $siteClass::getOptions();
 
         $this->render(
             'catalog::products::edit',
             array(
                 'id' => $id,
                 'product' => $this->product,
-                'categoriesOptions' => $categoriesOptions,
+                'productcategoryOptions' => $productcategoryOptions,
+                'siteOptions' => $siteOptions,
+                'selectSite' => $this->current_user->site_id === null,
                 'pageTitle' => $this->pageTitle,
                 'titleBox' => 'Modification produit n°'.$id,
                 'formAction' => Router::url('cockpit_catalog_products_update_'.$id)
@@ -98,6 +113,14 @@ class ProductsController extends CockpitController
     public function createAction()
     {
         $this->product = new Product();
+
+        if (!isset($this->request->post['active'])) {
+            $this->request->post['active'] = 0;
+        }
+
+        if ($this->request->post['quantity'] == '') {
+            $this->request->post['quantity'] = null;
+        }
 
         if ($this->product->save($this->request->post)) {
             $this->addFlash('Produit ajouté', 'success');
@@ -112,6 +135,14 @@ class ProductsController extends CockpitController
     public function updateAction($id)
     {
         $this->product = Product::findById($id);
+
+        if (!isset($this->request->post['active'])) {
+            $this->request->post['active'] = 0;
+        }
+
+        if ($this->request->post['quantity'] == '') {
+            $this->request->post['quantity'] = null;
+        }
 
         if ($this->product->save($this->request->post)) {
             $this->addFlash('Produit modifié', 'success');

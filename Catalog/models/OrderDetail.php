@@ -17,12 +17,12 @@ class OrderDetails extends Model
         return array(
             'order' => array(
                 'type' => '1',
-                'model' => 'Catalog\\models\\Order',
+                'model' => 'Order',
                 'key' => 'order_id'
             ),
             'product' => array(
                 'type' => '1',
-                'model' => 'Catalog\\models\\Product',
+                'model' => 'Product',
                 'key' => 'product_id'
             )
         );

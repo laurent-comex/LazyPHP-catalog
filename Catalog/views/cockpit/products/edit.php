@@ -8,8 +8,11 @@
     </div>
     <div class="box-body">
         {% form_open id="formProduct" action="formAction" %}
-            {% input_select name="category_id" model="product.category_id" options="categoriesOptions" label="Catégorie" %}
-            {% input_text name="name" model="product.name" label="Nom" %}
+<?php if ($selectSite): ?>
+            {% input_select name="site_id" model="user.site_id" label="Site" options="siteOptions" %}
+<?php endif; ?>
+            {% input_select name="productcategory_id" model="product.productcategory_id" options="productcategoryOptions" label="Catégorie" %}
+            {% input_text name="label" model="product.label" label="Nom" %}
             {% input_textarea name="description" model="product.description" label="Description" rows="10" %}
             {% input_text name="price" model="product.price" label="Prix" %}
             {% input_text name="quantity" model="product.quantity" label="Quantité disponible" %}

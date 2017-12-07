@@ -17,41 +17,34 @@ class Product extends Model
         'active'
     );
 
-    /**
-     * Get list of associed table(s)
-     *
-     * @return mixed
-     */
     public function getAssociations()
     {
         return array(
             'site' => array(
                 'type' => '1',
-                'model' => 'Core\\models\\Site',
+                'model' => 'Site',
                 'key' => 'site_id'
             ),
             'productcategory' => array(
                 'type' => '1',
-                'model' => 'Catalog\\models\\Category',
+                'model' => 'ProductCategory',
                 'key' => 'productcategory_id'
             ),
             'media' => array(
                 'type' => '1',
-                'model' => 'Media\\models\\Media',
+                'model' => 'Media',
                 'key' => 'media_id'
             )
         );
     }
 
-    /**
-     * Set default properties values
-     */
     public function setDefaultProperties()
     {
         parent::setDefaultProperties();
 
         $this->category_id = null;
         $this->price = 0.0;
+        $this->active = 1;
     }
 
     public function getValidations()
@@ -59,12 +52,12 @@ class Product extends Model
         $validations = parent::getValidations();
 
         $validations = array_merge($validations, array(
-            'name' => array(
+            'label' => array(
                 'type' => 'required',
                 'filters' => 'trim',
                 'error' => 'Nom obligatoire'
             ),
-            'category_id' => array(
+            'productcategory_id' => array(
                 'type' => 'required',
                 'defaultValue' => null
             ),
