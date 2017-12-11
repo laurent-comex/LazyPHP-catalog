@@ -40,7 +40,8 @@ class Cart
     {
         $cart = Session::get('cart');
         if ($cart === null) {
-            $cart = new Cart();
+            $cartClass = Model::loadModel('Cart');
+            $cart = new $cartClass();
         }
         return $cart;
     }
@@ -66,7 +67,8 @@ class Cart
         }
 
         if ($itemIndex === false) {
-            $this->items[] = new CartItem($product, $quantity);
+            $cartItemClass = Model::loadModel('CartItem');
+            $this->items[] = new $cartItemClass($product, $quantity);
         } else {
             $this->items[$itemIndex]->quantity = $this->items[$itemIndex]->quantity + $quantity;
         }
@@ -78,13 +80,20 @@ class Cart
      */
     public function deleteItem($product)
     {
-        var_dump($product);
         foreach ($this->items as $index => $item) {
             if ($item->product->id == $product->id) {
                 array_splice($this->items, $index, 1);
                 break;
             }
         }
+    }
+
+    /**
+     * Empty the cart
+     */
+    public function empty()
+    {
+        $this->items = array();
     }
 
     /**
@@ -126,5 +135,42 @@ class Cart
         }
 
         return $total;
+    }
+
+    public function createOrder($params = array())
+    {
+        $site = Session::get('site');
+        if ($site == null) {
+            $site = isset($params['site']) ? $params['site'] : null;
+        }
+
+        $current_user = Session::get('current_user');
+        if ($current_user == null) {
+            $current_user = isset($params['current_user']) ? $params['current_user'] : null;
+        }
+
+        if ($site === null || $current_user === null) {
+            throw new \Exception('Cannot create order : user unknown');
+        }
+
+        $orderClass = Model::loadModel('Order');
+        $order = new $orderClass();
+        
+        $order->site_id = $site !== null ? $site->id : null;
+        $order->user_id = $current_user !== null ? $current_user->id : null;
+
+        $order->save();
+
+        $orderDetailClass = Model::loadModel('OrderDetail');
+        foreach ($this->items as $item) {
+            $orderDetail = new $orderDetailClass();
+            $orderDetail->order_id = $order->id;
+            $orderDetail->product_id = $item->product->id;
+            $orderDetail->quantity = $item->quantity;
+            $orderDetail->amount = $item->getTotal();
+            $orderDetail->save();
+        }
+
+        return $order;
     }
 }

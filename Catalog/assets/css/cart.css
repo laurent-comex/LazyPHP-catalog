@@ -1,0 +1,11 @@
+.cart {
+
+}
+
+.empty-cart {
+	text-align: center;
+	font-size: 2rem;
+	font-weight: bold;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}

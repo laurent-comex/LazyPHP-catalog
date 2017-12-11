@@ -4,7 +4,7 @@ namespace Catalog\models;
 
 use Core\Model;
 
-class Orders extends Model
+class Order extends Model
 {
     protected $permittedColumns = array(
         'site_id',

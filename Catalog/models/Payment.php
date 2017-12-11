@@ -4,13 +4,14 @@ namespace Catalog\models;
 
 use Core\Model;
 
-class OrderDetail extends Model
+class Payment extends Model
 {
     protected $permittedColumns = array(
         'order_id',
-        'product_id',
-        'quantity',
-        'amount'
+        'payment_system',
+        'payment_method',
+        'amount',
+        'bill'
     );
 
     public function getAssociations()
@@ -20,11 +21,6 @@ class OrderDetail extends Model
                 'type' => '1',
                 'model' => 'Order',
                 'key' => 'order_id'
-            ),
-            'product' => array(
-                'type' => '1',
-                'model' => 'Product',
-                'key' => 'product_id'
             )
         );
     }

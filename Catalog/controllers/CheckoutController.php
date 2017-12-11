@@ -3,10 +3,12 @@
 namespace Catalog\controllers;
 
 use app\controllers\FrontController;
+use Core\Model;
 use Core\Session;
 use Core\Query;
 use Core\Router;
 
+use Catalog\models\Order;
 use Catalog\models\Payment;
 use Catalog\models\Cart;
 
@@ -14,13 +16,35 @@ class CheckoutController extends FrontController
 {
     public function cartAction()
     {
-        $cart = $this->session->get('cart');
-        if ($cart === null) {
-            $cart = new Cart();
-        }
+        $cartClass = $this->loadModel('Cart');
+        $cart = $cartClass::load();
 
-        $this->session->set('cart', $cart);
+        $this->render(
+            'catalog::checkout::cart',
+            array(
+                'cart' => $cart,
+                'isConnected' => $this->current_user !== null
+            )
+        );
+    }
 
+    public function emptycartAction()
+    {
+        $cartClass = $this->loadModel('Cart');
+        $cart = $cartClass::load();
+        $cart->empty();
+        $cart->save();
+
+        $this->render(
+            'catalog::checkout::cart',
+            array(
+                'cart' => $cart
+            )
+        );
+    }
+
+    public function loginAction()
+    {
         $this->render(
             'catalog::checkout::cart',
             array(
@@ -31,10 +55,12 @@ class CheckoutController extends FrontController
 
     public function payAction()
     {
-        $cart = Cart::load();
+        $cartClass = $this->loadModel('Cart');
+        $cart = $cartClass::load();
 
         if ($cart != null) {
             $amount = $cart->getTotal();
+            $amountFormatted = number_format($amount, 2, ',', ' ').' €';
             $stripeAmount = (int)($amount * 100);
 
             $email = $this->current_user !== null ? $this->current_user->email : '';
@@ -60,6 +86,14 @@ class CheckoutController extends FrontController
                         )
                     );
                     \Core\debug($charge, false);
+
+                    $order = $cart->createOrder();
+
+                    $paymentClass = $this->loadModel('Payment');
+                    $payment = new $paymentClass();
+
+                    $payment->order_id = $order->id;
+                    $payment->save();
                 } catch(\Exception $e) {
                     var_dump($e);
                 }
@@ -71,6 +105,7 @@ class CheckoutController extends FrontController
                     'stripePublishableKey' => STRIPE_PUBLISHABLE_KEY,
                     'email' => $email,
                     'amount' => $amount,
+                    'amountFormatted' => $amountFormatted,
                     'stripeAmount' => $stripeAmount
                 )
             );
