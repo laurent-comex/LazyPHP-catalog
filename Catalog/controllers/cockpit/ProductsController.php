@@ -41,8 +41,14 @@ class ProductsController extends CockpitController
 
     public function indexAction()
     {
+        if ($this->site !== null) {
+            $where = 'site_id = '.$this->controller->site->id;
+        } else {
+            $where = '';
+        }
+
         $productClass = $this->loadModel('Product');
-        $products = $productClass::findAll();
+        $products = $productClass::findAll($where);
 
         $this->render(
             'catalog::products::index',
@@ -112,7 +118,8 @@ class ProductsController extends CockpitController
 
     public function createAction()
     {
-        $this->product = new Product();
+        $productClass = $this->loadModel('Product');
+        $this->product = new $productClass();
 
         if (!isset($this->request->post['active'])) {
             $this->request->post['active'] = 0;
@@ -134,7 +141,8 @@ class ProductsController extends CockpitController
 
     public function updateAction($id)
     {
-        $this->product = Product::findById($id);
+        $productClass = $this->loadModel('Product');
+        $this->product = $productClass::findById($id);
 
         if (!isset($this->request->post['active'])) {
             $this->request->post['active'] = 0;
@@ -156,7 +164,8 @@ class ProductsController extends CockpitController
 
     public function deleteAction($id)
     {
-        $product = Product::findById($id);
+        $productClass = $this->loadModel('Product');
+        $product = $productClass::findById($id);
         $product->delete();
         $this->addFlash('Produit supprimé', 'success');
         $this->redirect('cockpit_catalog_products');

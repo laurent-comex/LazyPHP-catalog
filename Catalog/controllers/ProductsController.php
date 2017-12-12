@@ -36,7 +36,14 @@ class ProductsController extends Controller
 
     public function indexAction()
     {
-        $products = Product::findAll();
+        if ($this->site !== null) {
+            $where = 'site_id = '.$this->controller->site->id;
+        } else {
+            $where = '';
+        }
+
+        $productClass = $this->load('Product');
+        $products = $productClass::findAll($where);
 
         $this->render(
             'catalog::products::index',
@@ -48,8 +55,9 @@ class ProductsController extends Controller
 
     public function showAction()
     {
+        $productClass = $this->load('Product');
         if ($this->product === null) {
-            $this->product = Product::findById($id);
+            $this->product = $productClass::findById($id);
         }
 
         $this->render(
