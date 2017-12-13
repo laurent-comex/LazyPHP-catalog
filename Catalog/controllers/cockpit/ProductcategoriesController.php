@@ -22,8 +22,14 @@ class ProductcategoriesController extends CockpitController
 
     public function indexAction()
     {
+        if ($this->site !== null) {
+            $where = 'site_id = '.$this->site->id;
+        } else {
+            $where = '';
+        }
+
         $productcategoryClass = $this->loadModel('ProductCategory');
-        $productcategories = $productcategoryClass::getFlatCategories();
+        $productcategories = $productcategoryClass::getFlatCategories($where);
 
         $this->render(
             'catalog::productcategories::index',
@@ -42,7 +48,13 @@ class ProductcategoriesController extends CockpitController
             $this->productcategory = new $productcategoryClass();
         }
 
-        $productcategoryOptions = $productcategoryClass::getOptions();
+        if ($this->site !== null) {
+            $where = 'site_id = '.$this->site->id;
+        } else {
+            $where = '';
+        }
+
+        $productcategoryOptions = $productcategoryClass::getOptions(array('where' => $where));
 
         $siteClass = $this->loadModel('Site');
         $siteOptions = $siteClass::getOptions();
@@ -68,7 +80,13 @@ class ProductcategoriesController extends CockpitController
             $this->productcategory = $productcategoryClass::findById($id);
         }
 
-        $productcategoryOptions = $productcategoryClass::getOptions();
+        if ($this->site !== null) {
+            $where = 'site_id = '.$this->site->id;
+        } else {
+            $where = '';
+        }
+
+        $productcategoryOptions = $productcategoryClass::getOptions(array('where' => $where));
 
         $siteClass = $this->loadModel('Site');
         $siteOptions = $siteClass::getOptions();
@@ -93,6 +111,10 @@ class ProductcategoriesController extends CockpitController
         $productcategoryClass = $this->loadModel('ProductCategory');
         $this->productcategory = new $productcategoryClass();
 
+        if (!isset($this->request->post['site_id'])) {
+            $this->request->post['site_id'] = $this->site->id;
+        }
+
         if (!isset($this->request->post['active'])) {
             $this->request->post['active'] = 0;
         }
@@ -111,6 +133,10 @@ class ProductcategoriesController extends CockpitController
     {
         $productcategoryClass = $this->loadModel('ProductCategory');
         $this->productcategory = $productcategoryClass::findById($id);
+
+        if (!isset($this->request->post['site_id'])) {
+            $this->request->post['site_id'] = $this->site->id;
+        }
 
         if (!isset($this->request->post['active'])) {
             $this->request->post['active'] = 0;

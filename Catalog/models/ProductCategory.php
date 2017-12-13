@@ -44,23 +44,23 @@ class ProductCategory extends Model
     /**
      * Get category tree
      */
-    public static function getNestedCategories()
+    public static function getNestedCategories($where = '')
     {
-        return self::getChildren(null, true, 0, false);
+        return self::getChildren(null, true, 0, false, $where);
     }
 
     /**
      * Get flat category tree
      */
-    public static function getFlatCategories()
+    public static function getFlatCategories($where = '')
     {
-        return self::getChildren(null, true, 0, true);
+        return self::getChildren(null, true, 0, true, $where);
     }
 
     /**
      * Get category list for options in a select input
      */
-    public static function getOptions($where = null)
+    public static function getOptions($params = array())
     {
         $options = array(
             0 => array(
@@ -69,7 +69,8 @@ class ProductCategory extends Model
             )
         );
 
-        $categories = self::getFlatCategories();
+        $where = isset($params['where']) ? $params['where'] : '';
+        $categories = self::getFlatCategories($where);
 
         foreach ($categories as $category) {
             $options[$category->id] = array(

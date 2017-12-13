@@ -42,7 +42,7 @@ class ProductsController extends CockpitController
     public function indexAction()
     {
         if ($this->site !== null) {
-            $where = 'site_id = '.$this->controller->site->id;
+            $where = 'site_id = '.$this->site->id;
         } else {
             $where = '';
         }
@@ -67,8 +67,14 @@ class ProductsController extends CockpitController
             $this->product = new $productClass();
         }
 
+        if ($this->site !== null) {
+            $where = 'site_id = '.$this->site->id;
+        } else {
+            $where = '';
+        }
+
         $productcategoryClass = $this->loadModel('ProductCategory');
-        $productcategoryOptions = $productcategoryClass::getOptions();
+        $productcategoryOptions = $productcategoryClass::getOptions(array('where' => $where));
 
         $siteClass = $this->loadModel('Site');
         $siteOptions = $siteClass::getOptions();
@@ -95,8 +101,14 @@ class ProductsController extends CockpitController
             $this->product = $productClass::findById($id);
         }
 
+        if ($this->site !== null) {
+            $where = 'site_id = '.$this->site->id;
+        } else {
+            $where = '';
+        }
+
         $productcategoryClass = $this->loadModel('ProductCategory');
-        $productcategoryOptions = $productcategoryClass::getOptions();
+        $productcategoryOptions = $productcategoryClass::getOptions(array('where' => $where);
 
         $siteClass = $this->loadModel('Site');
         $siteOptions = $siteClass::getOptions();
@@ -121,6 +133,10 @@ class ProductsController extends CockpitController
         $productClass = $this->loadModel('Product');
         $this->product = new $productClass();
 
+        if (!isset($this->request->post['site_id'])) {
+            $this->request->post['site_id'] = $this->site->id;
+        }
+
         if (!isset($this->request->post['active'])) {
             $this->request->post['active'] = 0;
         }
@@ -143,6 +159,10 @@ class ProductsController extends CockpitController
     {
         $productClass = $this->loadModel('Product');
         $this->product = $productClass::findById($id);
+
+        if (!isset($this->request->post['site_id'])) {
+            $this->request->post['site_id'] = $this->site->id;
+        }
 
         if (!isset($this->request->post['active'])) {
             $this->request->post['active'] = 0;
