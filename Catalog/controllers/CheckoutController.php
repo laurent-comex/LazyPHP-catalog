@@ -7,6 +7,7 @@ use Core\Model;
 use Core\Session;
 use Core\Query;
 use Core\Router;
+use Core\Password;
 
 use Catalog\models\Order;
 use Catalog\models\Payment;
@@ -14,6 +15,27 @@ use Catalog\models\Cart;
 
 class CheckoutController extends FrontController
 {
+    /**
+     * @var string
+     */
+    public $tableName = 'users';
+    
+    /**
+     * @var string
+     */
+    public $idField = 'email';
+
+    /**
+     * @var string
+     */
+    public $passwordField = 'password';
+
+    /**
+     * @var string
+     */
+    public $sessionKey = 'current_user';
+
+
     public function cartAction()
     {
         $cartClass = $this->loadModel('Cart');
@@ -45,11 +67,62 @@ class CheckoutController extends FrontController
 
     public function loginAction()
     {
+        $errors = array();
+        $post = $this->request->post;
+
+        if (!empty($post) && isset($post[$this->idField]) && isset($post[$this->passwordField])) {
+            $id = trim($post[$this->idField]);
+            $password = trim($post[$this->passwordField]);
+
+            if ($id == '') {
+                $errors[$this->idField] = 'Identifiant obligatoire';
+            } else if (!filter_var($id, FILTER_VALIDATE_EMAIL)) {
+                $errors[$this->idField] = 'Email invalide';
+            }
+
+            if ($password == '') {
+                $errors[$this->passwordField] = 'Mot de passe obligatoire';
+            }
+
+            if (empty($errors)) {
+                $query = new Query();
+                $query->select('*');
+                $query->where($this->idField.' = :idField');
+                $query->from($this->tableName);
+                $res = $query->executeAndFetch(array('idField' => $id));
+
+                if ($res && Password::check($password, $res->password)) {
+                    $userClass = $this->loadModel('User');
+                    $user = $userClass::findById($res->id);
+                    $this->session->set($this->sessionKey, $user);
+                    if ($user->group->cockpit == 1) {
+                        $this->redirect($this->afterLoginPageCokpit);
+                    } else {
+                        $this->redirect($this->afterLoginPage);
+                    }
+                } else {
+                    $this->addFlash('Identifiant ou mot de passe incorrect', 'danger');
+                }
+            }
+        }
+
+
+        $params = array(
+            'pageTitle' => 'Accédez à votre espace',
+            'formAction' => Router::url('catalog_checkout_login'),
+            'signupURL' => '/users',
+            'altImageLogin' => 'Default Image Login',
+            'imageLogin' => '/assets/images/default_image_login.png',
+            'errors' => $errors
+        );
+
+        if (isset($id)) {
+            $params[$this->idField] = $id;
+        }
+
         $this->render(
-            'catalog::checkout::cart',
-            array(
-                'cart' => $cart
-            )
+            'catalog::checkout::login',
+            $params
         );
     }
 
@@ -105,6 +178,7 @@ class CheckoutController extends FrontController
                     'stripePublishableKey' => STRIPE_PUBLISHABLE_KEY,
                     'email' => $email,
                     'amount' => $amount,
+                    'cart' => $cart,
                     'amountFormatted' => $amountFormatted,
                     'stripeAmount' => $stripeAmount
                 )
