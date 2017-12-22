@@ -9,19 +9,22 @@ use Core\Query;
 use Core\Router;
 use Core\Password;
 
+use MangoPay\MangoPayApi;
+
 use Catalog\models\Order;
 use Catalog\models\Payment;
 use Catalog\models\Cart;
 
 class PaymentController extends FrontController
 {
-
-
     public function mangopayAction()
     {
-        $api = new MangoPay\MangoPayApi();
+        $api = new MangoPayApi();
 
-        
+        $this->render(
+            'catalog::payment::mangopay',
+            []
+        );
     }
 
 }

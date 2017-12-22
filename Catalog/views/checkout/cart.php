@@ -69,9 +69,9 @@ echo '<h1 class="page-title">Votre panier</h1>';
 
 
     if ($isConnected) {
-        echo '{% button url="catalog_checkout_pay" type="success" icon="check" content="Valider la commande" id="validCart" %}<br /><br />';
+        echo '{% button url="catalog_checkout_pay" type="success" icon="check" content="Valider la commande" class="validCart" %}<br /><br />';
     } else {
-        echo '{% button url="catalog_checkout_login" type="success" icon="check" content="Valider la commande" %}<br /><br />';
+        echo '{% button url="catalog_checkout_login" type="success" icon="check" content="Valider la commande" class="validCart" %}<br /><br />';
     }
     echo '{% button url="catalog_checkout_emptycart" type="danger" icon="trash" content="Vider le panier !!pour test à enlever!!" %}<br /><br />';
 } else {
@@ -82,7 +82,7 @@ echo '<h1 class="page-title">Votre panier</h1>';
 
 <script>
 
-    $( "#validCart" ).click(function( event) {
+    $( ".validCart" ).click(function( event) {
 
         if (!$('#checkAnnulation').is(":checked"))
             {
