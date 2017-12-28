@@ -54,7 +54,7 @@ class CheckoutController extends FrontController
     {
         $cartClass = $this->loadModel('Cart');
         $cart = $cartClass::load();
-        $cart->empty();
+        $cart->clean();
         $cart->save();
 
         $this->render(

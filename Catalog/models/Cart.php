@@ -98,7 +98,7 @@ class Cart
     /**
      * Empty the cart
      */
-    public function empty()
+    public function clean()
     {
         $this->items = array();
     }
