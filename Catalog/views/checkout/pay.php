@@ -1,93 +1,96 @@
+<section>
+    <div class="container">
+        <div class ="row">
+
+            <div class="col-md-12">
+               <h1 class="page-title">3. Paiement</h1>
+                <p><strong>Veuillez confirmer les détails :</strong></p>
+            </div>
+
+            <div class="col-md-8">
+                <div class="box-seance">
+                    <h3>Informations Séances</h3>
+
+                    <?php
+
+                        $total = 0;
+                        if (!empty($cart->items)) {
+                            echo 
+                                '<table class="table cart">'.
+                                    '<tr>'.
+                                        '<th>Produit</th>'.
+                                        '<th>Prix unit.</th>'.
+                                        '<th>Quantité</th>'.
+                                        '<th>Prix</th>'.
+                                    '</tr>';
+
+                            foreach ($cart->items as $item) {
+                                if($item->product->price != '') {
+                                        $price = $item->product->price;
+                                    } else {
+                                        $price = $item->product->coach->price;
+                                    }
+                                $price = $price/3 +3;
+                                echo
+                                    '<tr>'.
+                                        '<td class="cart">'.$item->product->label.'</td>'.
+                                        '<td>'.round($price, 2).'</td>'.
+                                        '<td>'.$item->quantity.'</td>'.
+                                        '<td>'.$item->getTotal().'</td>'.
+                                    '</tr>';
+                            }
+
+                            echo '</table>';
+                        }
+
+                    ?>
+                </div>
+            </div>
 
 
-<h1 class="page-title">Paiement</h1>
+            <div class="col-md-4">
+                <div class="box-account">
+                    <h3>Informations Utilisateur</h3>
+                    <p><strong>Nom</strong> : <?php echo $this->current_user->lastname; ?></p> 
+                    <p><strong>Prénom</strong> : <?php echo $this->current_user->firstname; ?> </p>
+                    <p><strong>Email</strong> : <?php echo $this->current_user->email; ?></p>
+                    <p><strong>Téléphone</strong> : <?php echo $this->current_user->phone; ?></p>
+                </div>
+            </div>
 
+                <?php
+                    foreach( $cart->items as $item) {
+                        $total= $item->getTotal() + $total;
+                    }
+                ?>
 
-    <h1 >Veuillez confirmer les détails</h1>
-    <hr/>
-    <h2>Informations Utilisateur</h2>
-    <p> Nom : <?php echo $this->current_user->lastname; ?></p> 
-    <p> Prénom : <?php echo $this->current_user->firstname; ?> </p>
-    <p> Email : <?php echo $this->current_user->email; ?></p>
-    <p> Téléphone : <?php echo $this->current_user->phone; ?></p>
-    <hr/>
-    <h2>Informations Séances</h2>
+            <div class="col-md-8">
+                <div class="box-total">
+                     <h2>Total <?php echo $total; ?> €</h2>
 
-<?php
+                    <form action="/catalog/checkout/pay" method="post">
+                        <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{ stripePublishableKey }}"
+                            data-amount="{{ stripeAmount }}"
+                            data-name="Fitnss"
+                            data-description="Widget"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="fr"
+                            data-zip-code="false"
+                            data-currency="eur"
+                            data-email="{{ email }}"
+                            data-label="Payer par carte">
+                        </script>
+                    </form>
 
-    $total = 0;
-    if (!empty($cart->items)) {
-        echo 
-            '<table class="table cart">'.
-                '<tr>'.
-                    '<th>Produit</th>'.
-                    '<th>Prix unit.</th>'.
-                    '<th>Quantité</th>'.
-                    '<th>Prix</th>'.
-                '</tr>';
+                    {% button url="catalog_checkout_cart" type="secondary" icon="arrow-left" content="Retour au panier" %}
+                    
+                    {% button url="catalog_payment_mangopay" type="primary" class="btn-blue" content="PAYER" %}
 
-        foreach ($cart->items as $item) {
-            if($item->product->price != '') {
-                    $price = $item->product->price;
-                } else {
-                    $price = $item->product->coach->price;
-                }
-            $price = $price/3 +3;
-            echo
-                '<tr>'.
-                    '<td class="cart">'.$item->product->label.'</td>'.
-                    '<td>'.round($price, 2).'</td>'.
-                    '<td>'.$item->quantity.'</td>'.
-                    '<td>'.$item->getTotal().'</td>'.
-                '</tr>';
-        }
+                </div>
+            </div>
 
-
-        echo '</table><br /><br />';
-    }
-        
-
-?>
-
-<hr/>
-    <h2>Total</h2>
-
-<?php
-        foreach( $cart->items as $item) {
-
-            echo $item->product->activity->label . '/' . $item->product->location->name . ' ';
-            echo  $item->getTotal().' €';
-            echo '<br />';
-
-            $total= $item->getTotal() + $total;
-        }
-
-
-
-        echo '<p>Total = {{ amountFormatted }} € </p> ';
-?>
-
-
-
-<br />
-<form action="/catalog/checkout/pay" method="post">
-    <script
-        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-        data-key="{{ stripePublishableKey }}"
-        data-amount="{{ stripeAmount }}"
-        data-name="Fitnss"
-        data-description="Widget"
-        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-        data-locale="fr"
-        data-zip-code="false"
-        data-currency="eur"
-        data-email="{{ email }}"
-        data-label="Payer par carte">
-    </script>
-</form>
-<br />
-<br />
-
-{% button url="catalog_payment_mangopay" type="primary" content="Mango Paiement" %}
-
-{% button url="catalog_checkout_cart" type="secondary" icon="arrow-left" content="Retour au panier" %}
+        </div>
+    </div>
+</section>
