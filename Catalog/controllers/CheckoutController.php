@@ -95,11 +95,8 @@ class CheckoutController extends FrontController
                     $userClass = $this->loadModel('User');
                     $user = $userClass::findById($res->id);
                     $this->session->set($this->sessionKey, $user);
-                    if ($user->group->cockpit == 1) {
-                        $this->redirect($this->afterLoginPageCokpit);
-                    } else {
-                        $this->redirect($this->afterLoginPage);
-                    }
+                    $this->redirect("catalog_checkout_pay");
+
                 } else {
                     $this->addFlash('Identifiant ou mot de passe incorrect', 'danger');
                 }
