@@ -13,7 +13,7 @@
                     {% form_open id="formLogin" action="formAction" %}
                         {% input_text name="email" model="email" label="Email" placeholder="Identifiant" %}
                         {% input_password name="password" model="password" label="Mot de passe" value="" placeholder="Mot de passe" autocomplete="off" %}
-                        {% input_submit name="submit" value="login" formId="formLogin" label="Se connecter" class="btn-primary btn-blue" %}
+                        {% input_submit name="submit" value="login" formId="formLogin" label="Se connecter" class="btn-primary btn-blue"  %}
                     {% form_close %}
                     <p>
                         Mot de passe oublié? <a href="forgotpassword">Cliquez ici</a>

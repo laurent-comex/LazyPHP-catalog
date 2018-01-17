@@ -68,7 +68,9 @@
                         } else {
                             echo '{% button url="catalog_checkout_login" type="success" icon="check" content="Valider la commande" class="validCart" %}<br /><br />';
                         }
+                        /*
                         echo '{% button url="catalog_checkout_emptycart" type="danger" icon="trash" content="Vider le panier !!pour test à enlever!!" %}<br /><br />';
+                        */
                     } else {
                         echo '<div class="empty-cart">Panier vide</div>';
                     }
