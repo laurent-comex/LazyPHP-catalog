@@ -19,7 +19,7 @@ class CheckoutController extends FrontController
      * @var string
      */
     public $tableName = 'users';
-    
+
     /**
      * @var string
      */
@@ -138,35 +138,40 @@ class CheckoutController extends FrontController
             if (isset($this->request->post['stripeToken'])) {
                 \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
-                // $customer = \Stripe\Customer::create(
-                //     array(
-                //         'email' => $this->request->post['stripeEmail'],
-                //         'token' => $this->request->post['stripeToken']
-                //     )
-                // );
+                $paymentClass = $this->loadModel('Payment');
+                $order = $cart->createOrder();
 
                 try {
                     $charge = \Stripe\Charge::create(
                         array(
-//                            'customer' => $customer->id,
                             'amount' => $stripeAmount,
                             'currency' => 'eur',
                             'description' => 'Test',
                             'source' => $this->request->post['stripeToken']
                         )
                     );
-                    \Core\debug($charge, false);
-
-                    $order = $cart->createOrder();
-
-                    $paymentClass = $this->loadModel('Payment');
                     $payment = new $paymentClass();
-
                     $payment->order_id = $order->id;
+                    $payment->payment_system = 'stripe';
+                    $payment->payment_method = 'card';
+                    $payment->amount = $amount;
+                    $payment->status = 'success';
                     $payment->save();
                 } catch(\Exception $e) {
-                    var_dump($e);
+                    $payment = new $paymentClass();
+                    $payment->order_id = $order->id;
+                    $payment->payment_system = 'stripe';
+                    $payment->payment_method = 'card';
+                    $payment->amount = $amount;
+                    $payment->status = 'error';
+                    $payment->save();
                 }
+                // On vide le panier
+                $cart->clean();
+                $cart->save();
+
+                // On revoit vers l'accueil ou ailleurs ?
+                $this->redirect("/");
             }
 
             $this->render(

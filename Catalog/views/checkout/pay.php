@@ -15,7 +15,7 @@
 
                         $total = 0;
                         if (!empty($cart->items)) {
-                            echo 
+                            echo
                                 '<table class="table cart">'.
                                     '<tr>'.
                                         '<th>Produit</th>'.
@@ -51,7 +51,7 @@
             <div class="col-md-4">
                 <div class="box-account">
                     <h3>Informations Utilisateur</h3>
-                    <p><strong>Nom</strong> : <?php echo $this->current_user->lastname; ?></p> 
+                    <p><strong>Nom</strong> : <?php echo $this->current_user->lastname; ?></p>
                     <p><strong>Prénom</strong> : <?php echo $this->current_user->firstname; ?> </p>
                     <p><strong>Email</strong> : <?php echo $this->current_user->email; ?></p>
                     <p><strong>Téléphone</strong> : <?php echo $this->current_user->phone; ?></p>
@@ -83,10 +83,9 @@
                             data-label="Payer par carte">
                         </script>
                     </form>
-
+                    <br />
                     {% button url="catalog_checkout_cart" type="secondary" icon="arrow-left" content="Retour au panier" %}
-                    
-                    {% button url="catalog_payment_mangopay" type="primary" class="btn-blue" content="PAYER" %}
+                    <!--{% button url="catalog_payment_mangopay" type="primary" class="btn-blue" content="PAYER" %}-->
 
                 </div>
             </div>
