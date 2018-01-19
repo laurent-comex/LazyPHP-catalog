@@ -14,7 +14,8 @@ class Product extends Model
         'price',
         'quantity',
         'media_id',
-        'active'
+        'active',
+        'label_slot'
     );
 
     public function getAssociations()
