@@ -150,28 +150,49 @@ class CheckoutController extends FrontController
                             'source' => $this->request->post['stripeToken']
                         )
                     );
-                    $payment = new $paymentClass();
-                    $payment->order_id = $order->id;
-                    $payment->payment_system = 'stripe';
-                    $payment->payment_method = 'card';
-                    $payment->amount = $amount;
-                    $payment->status = 'success';
-                    $payment->save();
+                    $status = 'success';
+
                 } catch(\Exception $e) {
-                    $payment = new $paymentClass();
-                    $payment->order_id = $order->id;
-                    $payment->payment_system = 'stripe';
-                    $payment->payment_method = 'card';
-                    $payment->amount = $amount;
-                    $payment->status = 'error';
-                    $payment->save();
+                    var_dump($e);
+                    $status = 'error';
                 }
+
+                $payment = new $paymentClass();
+                $payment->order_id = $order->id;
+                $payment->payment_system = 'stripe';
+                $payment->payment_method = 'card';
+                $payment->amount = $amount;
+                $payment->status = $status;
+                $payment->code = $charge->id;
+                $payment->site_id = $this->site->id;
+                $payment->save();
+
+                $order->status = 'paid';
+                $order->save();
+
+                // var_dump($order);
+
+                $books = $cart->items;
+                $bookClass = $this->loadModel('Book');
+
+                foreach($books as $item) {
+                    $book = new $bookClass();
+                    $book->site_id = $this->site->id;
+                    $book->slot_id = $item->product->id;
+                    $book->user_id = $this->current_user->id;
+                    $book->payment_id = $payment->id;
+                    $book->cancelled = 0;
+                    $book->order_id = $order->id;
+                    var_dump($book);
+                    $book->save();
+                }
+
                 // On vide le panier
                 $cart->clean();
                 $cart->save();
 
                 // On revoit vers l'accueil ou ailleurs ?
-                $this->redirect("/");
+                // $this->redirect("/");
             }
 
             $this->render(

@@ -11,7 +11,11 @@ class Payment extends Model
         'payment_system',
         'payment_method',
         'amount',
-        'bill'
+        'bill',
+        'status',
+        'site_id',
+        'code',
+        'description'
     );
 
     public function getAssociations()
@@ -21,7 +25,12 @@ class Payment extends Model
                 'type' => '1',
                 'model' => 'Order',
                 'key' => 'order_id'
-            )
+            ),
+            'site' => array(
+                'type' => '1',
+                'model' => 'Site',
+                'key' => 'site_id'
+            ),
         );
     }
 }
