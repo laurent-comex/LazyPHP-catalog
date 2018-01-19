@@ -183,7 +183,6 @@ class CheckoutController extends FrontController
                     $book->payment_id = $payment->id;
                     $book->cancelled = 0;
                     $book->order_id = $order->id;
-                    var_dump($book);
                     $book->save();
                 }
 
@@ -192,7 +191,7 @@ class CheckoutController extends FrontController
                 $cart->save();
 
                 // On revoit vers l'accueil ou ailleurs ?
-                // $this->redirect("/");
+                $this->redirect("user");
             }
 
             $this->render(
