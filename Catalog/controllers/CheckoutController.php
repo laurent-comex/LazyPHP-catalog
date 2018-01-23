@@ -48,6 +48,7 @@ class CheckoutController extends FrontController
                 'isConnected' => $this->current_user !== null
             )
         );
+
     }
 
     public function emptycartAction()
@@ -208,5 +209,35 @@ class CheckoutController extends FrontController
         } else {
             throw new \Exception('Cart is empty');
         }
+    }
+
+
+    public function deleteAction($label)
+    {
+        //session > supprimer dedans ? 
+        //vardump($_SESSION);
+
+        /*$cartClass = $this->loadModel('Cart');
+        $cart = $cartClass::load();
+        > ok
+
+        $cart->clean();
+        $cart->save();
+        >a changer pour le for each
+
+        $this->render(
+            'catalog::checkout::cart',
+            array(
+                'cart' => $cart
+            )
+        );*/
+        
+        $this->addFlash('Réservation supprimé', 'success');
+        $this->redirect('user');
+        $this->render('catalog::checkout::cart',
+            array(
+                'cart' => $cart
+            )
+        );
     }
 }
