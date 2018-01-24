@@ -20,7 +20,7 @@
                                         '<th>Prix</th>'.
                                         '<th> </th>'.
                                     '</tr>';
-                            foreach ($cart->items as $item) {
+                            foreach ($cart->items as $index => $item) {
                                 if($item->product->price != '') {
                                         $price = $item->product->price;
                                     } else {
@@ -33,7 +33,7 @@
                                         '<td>'.round($price, 2).'</td>'.
                                         '<td>'.$item->quantity.'</td>'.
                                         '<td>'.$item->getTotal().'</td>'.
-                                        '<td> {% button url="catalog_checkout_delete_<?php echo $item->product->label; ?>" type="danger" size="sm" icon="trash-o" confirmation="Vous confirmer vouloir supprimer cette réservation ?" hint="Supprimer" %} </td>'.
+                                        '<td> {% button url="catalog_checkout_delete_'.($index+1).'" type="danger" size="sm" icon="trash-o" confirmation="Vous confirmer vouloir supprimer cette réservation ?" hint="Supprimer" %} </td>'.
                                     '</tr>';
                             }
 

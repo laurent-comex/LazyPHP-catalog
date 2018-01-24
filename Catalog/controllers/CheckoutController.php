@@ -212,14 +212,14 @@ class CheckoutController extends FrontController
     }
 
 
-    public function deleteAction($label)
+    public function deleteAction($index)
     {
         //session > supprimer dedans ? 
         //vardump($_SESSION);
 
-        /*$cartClass = $this->loadModel('Cart');
+        $cartClass = $this->loadModel('Cart');
         $cart = $cartClass::load();
-        > ok
+       /* > ok
 
         $cart->clean();
         $cart->save();
@@ -231,13 +231,22 @@ class CheckoutController extends FrontController
                 'cart' => $cart
             )
         );*/
+        $index = $index - 1 ;
+
+        foreach ($cart->items as $idx => $item) {
+            echo $item->product->label . '<br />';*
+            if ($idx == $index) {
+                unset($item[$idx]);
+            }
+            echo $item->product->label . '<br />';
+        }
+
+        
+
+        echo $index;
         
         $this->addFlash('Réservation supprimé', 'success');
-        $this->redirect('user');
-        $this->render('catalog::checkout::cart',
-            array(
-                'cart' => $cart
-            )
-        );
+        // $this->redirect('user');
+        
     }
 }
