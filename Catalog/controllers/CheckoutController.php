@@ -234,7 +234,7 @@ class CheckoutController extends FrontController
         $index = $index - 1 ;
 
         foreach ($cart->items as $idx => $item) {
-            echo $item->product->label . '<br />';*
+            echo $item->product->label . '<br />';
             if ($idx == $index) {
                 unset($item[$idx]);
             }
