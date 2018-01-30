@@ -52,7 +52,7 @@
                     <h2>Total <?php echo $total; ?> €</h2>
 
                     <p>
-                        <span>En cliquant sur le bouton, vous acceptez les conditions générales de FITNSS</span>
+                        <span>En cliquant sur le bouton, vous acceptez <a href="http://fitnss.dev.overconsulting.org/pages/39" target="_blank">les conditions générales de FITNSS</a></span>
                         <br/><input type="checkbox" name="annulation"  id="checkAnnulation"> <span>J'ai lu et j'accepte les conditions d'annulation</span> </input>
                     </p>
 
