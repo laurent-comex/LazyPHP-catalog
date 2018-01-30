@@ -26,7 +26,7 @@
                 <div class="box-register">
                     <h3 class="box-title">Nouveau compte</h3>
                 
-                    {% form_open id="formSignup" action="formAction" %}
+                    {% form_open id="formSignup" action="formAction2" %}
                         {% input_text name="firstname" model="coach.firstname" label="Prénom" %}
                         {% input_text name="lastname" model="coach.lastname" label="Nom" %}
                         {% input_textarea name="address" model="coach.address" label="Adresse" %}
