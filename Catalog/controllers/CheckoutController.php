@@ -118,6 +118,15 @@ class CheckoutController extends FrontController
             $params[$this->idField] = $id;
         }
 
+        //TEST 
+        $cartClass = $this->loadModel('Cart');
+        $cart = $cartClass::load();
+        $books = $cart->items;
+        //$datetimeInfos = $books->product->getDatetimeInfos();
+        //$datetimeInfos['startFormatted'];
+        //var_export($books->getDatetimeInfos());      
+
+
         $this->render(
             'catalog::checkout::login',
             $params
@@ -190,6 +199,34 @@ class CheckoutController extends FrontController
                 // On vide le panier
                 $cart->clean();
                 $cart->save();
+
+                //envoie d'email
+                $datetimeInfos = $item->product->getDatetimeInfos();
+                $datetimeInfos['startFormatted'];
+                $contents="Bonjour " .  $this->current_user->firstname .",
+
+Nous vous confirmons la réservation de votre séance de " . $item->product->label . " avec le coach " . $item->product->coach->firstname . ".
+
+Infos séance :
+Le [Date] à [Heure]
+Rendez-vous au [Adresse Lieu]
+Il est recommandé d’arriver en tenue adaptée 5 minutes avant le début de la séance.
+
+Vous pouvez contacter le coach [Prénom] au [Téléphone Coach] pour faciliter votre rencontre ou poser des questions sur la séance.
+
+Vous recevrez un mail de confirmation ou d’annulation de séance 24h avant le début de celle-ci (La séance est annulée s’il y a moins de 3 participants inscrits). (Phrase en gras uniquement pour les séances Fitnss et pas pour les séances en cours collectifs)
+
+Une erreur ? Un empêchement ? Vous pouvez à tout moment annuler votre séance en cliquant ici (Lien vers page d’annulation)
+Consultez nos conditions générales d’utilisation (Lien vers CGU/CGV)
+
+Sportivement,
+L’équipe FITNSS.";
+
+var_dump( $contents);die();
+
+                Mail::send('contact@fitnss.fr', 'Contact', $this->current_user->email, $this->current_user->fullname, 'FITNSS, réservation de votre séance de '. $item->product->label . ' - ' . $item->product->label_slot , $contents);
+
+
 
                 // On revoit vers l'accueil ou ailleurs ?
                 $this->redirect("user");
