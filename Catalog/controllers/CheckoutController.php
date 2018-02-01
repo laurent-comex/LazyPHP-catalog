@@ -8,6 +8,7 @@ use Core\Session;
 use Core\Query;
 use Core\Router;
 use Core\Password;
+use Core\Mail;
 
 use Catalog\models\Order;
 use Catalog\models\Payment;
@@ -118,13 +119,13 @@ class CheckoutController extends FrontController
             $params[$this->idField] = $id;
         }
 
-        //TEST 
+        //TEST
         $cartClass = $this->loadModel('Cart');
         $cart = $cartClass::load();
         $books = $cart->items;
         //$datetimeInfos = $books->product->getDatetimeInfos();
         //$datetimeInfos['startFormatted'];
-        //var_export($books->getDatetimeInfos());      
+        //var_export($books->getDatetimeInfos());
 
 
         $this->render(
@@ -215,7 +216,7 @@ class CheckoutController extends FrontController
                 }else{
                     $confirmation_sentence="Vous recevrez un mail de confirmation ou d’annulation de séance 24h avant le début de celle-ci (La séance est annulée s’il y a moins de 3 participants inscrits).";
                 }
-                
+
 
 
                 $contents="Bonjour " .  $this->current_user->firstname .", <br/>
@@ -223,7 +224,7 @@ class CheckoutController extends FrontController
                     Nous vous confirmons la réservation de votre séance de " . $item->product->activity->label . " - ". $label_slot .  " avec le coach " . $item->product->coach->firstname . ".
 
                     Infos séance : ."
-                    //$datetimeInfos['startFormatted'] 
+                    //$datetimeInfos['startFormatted']
                     . "Le [Date] à [Heure] <br/>
                     Rendez-vous au " . $item->product->location->address . ' ' . $item->product->location->zip_code . ' ' . $item->product->location->city . "
                     Il est recommandé d’arriver en tenue adaptée 5 minutes avant le début de la séance. <br/>
@@ -271,7 +272,7 @@ class CheckoutController extends FrontController
 
     public function deleteAction($index)
     {
-        //session > supprimer dedans ? 
+        //session > supprimer dedans ?
         //vardump($_SESSION);
 
         $cartClass = $this->loadModel('Cart');
@@ -298,12 +299,12 @@ class CheckoutController extends FrontController
             echo $item->product->label . '<br />';
         }
 
-        
+
 
         echo $index;
-        
+
         $this->addFlash('Réservation supprimé', 'success');
         // $this->redirect('user');
-        
+
     }
 }
