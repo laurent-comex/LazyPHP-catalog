@@ -244,8 +244,8 @@ class CheckoutController extends FrontController
 
                 Mail::send('contact@fitnss.fr', 'Contact', 'contact@fitnss.fr', 'Contact' , 'FITNSS, réservation d\'un séance de '. $item->product->label . ' - ' . $item->product->label_slot , 'Une séance a été réservée par' . $this->current_user->fullname .' Pour obtenir plus d\'information, rendez-vous dans le back office de votre site.');
 
-                Mail::send('contact@fitnss.fr', 'Contact', $item->product->coach->email, $item->product->coach->fullname, 'FITNSS, réservation d\'une place sur votre séance de '. $item->product->label . ' - ' . $item->product->label_slot , 'Une place de votre ' . $item->product->label . ' - ' . $item->product->label_slot .' séance a été réservée par' . $this->current_user->fullname .' ');
-
+               /* Mail::send('contact@fitnss.fr', 'Contact', $item->product->coach->email, $item->product->coach->fullname, 'FITNSS, réservation d\'une place sur votre séance de '. $item->product->label . ' - ' . $item->product->label_slot , 'Une place de votre ' . $item->product->label . ' - ' . $item->product->label_slot .' séance a été réservée par' . $this->current_user->fullname .' ');
+                */
 
 
                 // On revoit vers l'accueil ou ailleurs ?
