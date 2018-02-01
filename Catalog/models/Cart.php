@@ -25,13 +25,8 @@ class CartItem
 
     public function getTotal()
     {
-        if($this->product->price!= '') {
-                $price = $this->product->price;
-            } else {
-                $price = $this->product->coach->price;
-            }
+        $price = number_format($this->product->getPrice(), 2);
 
-        $price = $price/3 +3;
         return round($price* $this->quantity,2);
     }
 }

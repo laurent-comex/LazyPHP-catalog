@@ -21,16 +21,13 @@
                                         '<th> </th>'.
                                     '</tr>';
                             foreach ($cart->items as $index => $item) {
-                                if($item->product->price != '') {
-                                        $price = $item->product->price;
-                                    } else {
-                                        $price = $item->product->coach->price;
-                                    }
-                                $price = $price/3 +3;
+                                
+                                $price = number_format($item->product->getPrice(), 2);
+
                                 echo
                                     '<tr>'.
                                         '<td class="cart">'.$item->product->label.'</td>'.
-                                        '<td>'.round($price, 2).'</td>'.
+                                        '<td>'.$price.'</td>'.
                                         '<td>'.$item->quantity.'</td>'.
                                         '<td>'.$item->getTotal().'</td>'.
                                         '<td> {% button url="catalog_checkout_delete_'.($index+1).'" type="danger" size="sm" icon="trash-o" confirmation="Vous confirmer vouloir supprimer cette réservation ?" hint="Supprimer" %} </td>'.
@@ -52,7 +49,7 @@
                     <h2>Total <?php echo $total; ?> €</h2>
 
                     <p>
-                        <span>En cliquant sur le bouton, vous acceptez <a href="http://fitnss.dev.overconsulting.org/pages/39" target="_blank">les conditions générales de FITNSS</a></span>
+                        <span>En cliquant sur le bouton, vous acceptez <a href="/pages/39" target="_blank">les conditions générales de FITNSS</a></span>
                         <br/><input type="checkbox" name="annulation"  id="checkAnnulation"> <span>J'ai lu et j'accepte les conditions d'annulation</span> </input>
                     </p>
 

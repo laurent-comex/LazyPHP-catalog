@@ -24,17 +24,14 @@
                                         '<th>Prix</th>'.
                                     '</tr>';
 
-                            foreach ($cart->items as $item) {
-                                if($item->product->price != '') {
-                                        $price = $item->product->price;
-                                    } else {
-                                        $price = $item->product->coach->price;
-                                    }
-                                $price = $price/3 +3;
+                            foreach ($cart->items as $index => $item) {
+                                
+                                $price = number_format($item->product->getPrice(), 2);
+
                                 echo
                                     '<tr>'.
                                         '<td class="cart">'.$item->product->label.'</td>'.
-                                        '<td>'.round($price, 2).'</td>'.
+                                        '<td>'.$price.'</td>'.
                                         '<td>'.$item->quantity.'</td>'.
                                         '<td>'.$item->getTotal().'</td>'.
                                     '</tr>';
