@@ -10,6 +10,7 @@ use Core\Router;
 use Core\Password;
 use Core\Mail;
 
+
 use Catalog\models\Order;
 use Catalog\models\Payment;
 use Catalog\models\Cart;
@@ -212,34 +213,36 @@ class CheckoutController extends FrontController
 
                 //phrase en gras si scéance fitnss
                 if($item->product->fitnss == 1) {
-                    $confirmation_sentence = "<strong>Vous recevrez un mail de confirmation ou d’annulation de séance 24h avant le début de celle-ci (La séance est annulée s’il y a moins de 3 participants inscrits)</strong>.";
+                    $confirmation_sentence = "<strong>Vous recevrez un mail de confirmation ou d’annulation de séance 24h avant le début de celle-ci (La séance est annulée s’il y a moins de 3 participants inscrits)</strong>.<br/>";
                 }else{
-                    $confirmation_sentence="Vous recevrez un mail de confirmation ou d’annulation de séance 24h avant le début de celle-ci (La séance est annulée s’il y a moins de 3 participants inscrits).";
+                    $confirmation_sentence="Vous recevrez un mail de confirmation ou d’annulation de séance 24h avant le début de celle-ci (La séance est annulée s’il y a moins de 3 participants inscrits).<br/>";
                 }
 
 
 
-                $contents="Bonjour " .  $this->current_user->firstname .", <br/>
-
-                    Nous vous confirmons la réservation de votre séance de " . $item->product->activity->label . " - ". $label_slot .  " avec le coach " . $item->product->coach->firstname . ".
-
-                    Infos séance : ."
+                $contents='Bonjour ' .  $this->current_user->firstname .', <br/><br/>
+                
+                    Nous vous confirmons la réservation de votre séance de ' . $item->product->activity->label . ' - '. $label_slot .  ' avec le coach ' . $item->product->coach->firstname . '.<br/><br/>
+                
+                    Infos séance : <br/>'
                     //$datetimeInfos['startFormatted']
-                    . "Le [Date] à [Heure] <br/>
-                    Rendez-vous au " . $item->product->location->address . ' ' . $item->product->location->zip_code . ' ' . $item->product->location->city . "
-                    Il est recommandé d’arriver en tenue adaptée 5 minutes avant le début de la séance. <br/>
+                    . 'Le [Date] à [Heure] <br/>
+                    Rendez-vous au ' . $item->product->location->address . ' ' . $item->product->location->zip_code . ' ' . $item->product->location->city . '<br/>
+                    Il est recommandé d’arriver en tenue adaptée 5 minutes avant le début de la séance. <br/><br/>
+            
+                    Vous pouvez contacter le coach ' . $item->product->coach->firstname . ' au ' . $item->product->coach->phone . ' pour faciliter votre rencontre ou poser des questions sur la séance. <br/><br/> ' .
+                                    
+                    $confirmation_sentence . ' <br/> . '
+                
+                    //Une erreur ? Un empêchement ? Vous pouvez à tout moment annuler votre séance en cliquant ici (Lien vers page d’annulation) 
+                    .'<br/>
+                    <a href="http://fitnss.fr/pages/39" target="_blank">Consultez nos conditions générales d’utilisation</a> <br/><br/>
+                
+                    Sportivement, <br/>
+                    L’équipe FITNSS ';
 
-                    Vous pouvez contacter le coach " . $item->product->coach->firstname ." au " . $item->product->coach->phone . " pour faciliter votre rencontre ou poser des questions sur la séance. <br/> " .
+                var_dump($contents);die();
 
-                     $confirmation_sentence  . "<br/>
-
-                     Une erreur ? Un empêchement ? Vous pouvez à tout moment annuler votre séance en cliquant ici (Lien vers page d’annulation)
-                    Consultez nos conditions générales d’utilisation (Lien vers CGU/CGV) <br/>
-
-                    Sportivement,
-                    L’équipe FITNSS.";
-
-//var_dump( $contents);die();
                 //mail pour les utilisateurs ayant réservé
                 Mail::send('contact@fitnss.fr', 'Contact', $this->current_user->email, $this->current_user->fullname, 'FITNSS, réservation de votre séance de '. $item->product->label . ' - ' . $item->product->label_slot , $contents);
 
