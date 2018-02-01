@@ -30,7 +30,7 @@
                                         '<td>'.$price.'</td>'.
                                         '<td>'.$item->quantity.'</td>'.
                                         '<td>'.$item->getTotal().'</td>'.
-                                        '<td> {% button url="catalog_checkout_delete_'.($index+1).'" type="danger" size="sm" icon="trash-o" confirmation="Vous confirmer vouloir supprimer cette réservation ?" hint="Supprimer" %} </td>'.
+                                        '<td> {% button url="catalog_checkout_delete_'.($index+1).'" type="danger" size="sm" icon="trash-o" confirmation="Etes vous sûr de vouloir supprimer cette réservation ?" hint="Supprimer" %} </td>'.
                                     '</tr>';
                             }
 
