@@ -11,7 +11,7 @@
                     <?php
                         $total = 0;
                         if (!empty($cart->items)) {
-                            echo 
+                            echo
                                 '<table class="table cart">'.
                                     '<tr>'.
                                         '<th>Produit</th>'.
@@ -21,7 +21,7 @@
                                         '<th> </th>'.
                                     '</tr>';
                             foreach ($cart->items as $index => $item) {
-                                
+
                                 $price = number_format($item->product->getPrice(), 2);
 
                                 echo
@@ -49,15 +49,15 @@
                     <h2>Total <?php echo $total; ?> €</h2>
 
                     <p>
-                        <span>En cliquant sur le bouton, vous acceptez <a href="/pages/39" target="_blank">les conditions générales de FITNSS</a></span>
+                        <span>En cliquant sur le bouton, vous acceptez <a href="/pages/39" target="_blank">les conditions générales de FITNSS & décharge de responsabilité</a></span>
                         <br/><input type="checkbox" name="annulation"  id="checkAnnulation"> <span>J'ai lu et j'accepte les conditions d'annulation</span> </input>
                     </p>
 
-                    <?php 
+                    <?php
                             if(isset( $_POST['annulation'])  && $_POST['annulation']=="ok") {
-                                $link = 'chemin 1';  
+                                $link = 'chemin 1';
                             } else {
-                                // Rester sur la page + erreur 
+                                // Rester sur la page + erreur
                                 $link= '';
                             }
 
@@ -90,7 +90,7 @@
             {
                 event.preventDefault();
                 alert('Merci d\'accepter les conditions d\'annulation');
-            } 
+            }
 
     });
 
