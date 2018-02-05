@@ -236,7 +236,7 @@ class CheckoutController extends FrontController
 
                     Vous pouvez contacter le coach ' . $item->product->coach->firstname . ' au ' . $item->product->coach->phone . ' pour faciliter votre rencontre ou poser des questions sur la séance. <br/><br/> ' .
 
-                    $confirmation_sentence . ' <br/> . '
+                    $confirmation_sentence . ' <br/>  '
 
                     //Une erreur ? Un empêchement ? Vous pouvez à tout moment annuler votre séance en cliquant ici (Lien vers page d’annulation)
                     .'<br/>
