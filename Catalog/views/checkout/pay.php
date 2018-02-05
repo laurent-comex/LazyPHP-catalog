@@ -26,7 +26,7 @@
 
                             foreach ($cart->items as $index => $item) {
                                 
-                                $price = number_format($item->product->getPrice(), 2);
+                                $price = number_format($item->product->getPrice(), 2, ',', ' ');
 
                                 echo
                                     '<tr>'.
