@@ -9,6 +9,7 @@ class Order extends Model
     protected $permittedColumns = array(
         'site_id',
         'user_id',
+        'status'
     );
 
     public function getAssociations()
