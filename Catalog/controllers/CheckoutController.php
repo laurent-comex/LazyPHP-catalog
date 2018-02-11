@@ -181,7 +181,10 @@ class CheckoutController extends FrontController
                 $payment->status = $status;
                 $payment->code = $charge->id;
                 $payment->site_id = $this->site->id;
+                // var_dump($payment);die;
                 $payment->save();
+
+                
 
                 $order->status = 'paid';
                 $order->save();

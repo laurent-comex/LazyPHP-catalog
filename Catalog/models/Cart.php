@@ -161,6 +161,8 @@ class Cart
         $order->site_id = $site !== null ? $site->id : null;
         $order->user_id = $current_user !== null ? $current_user->id : null;
 
+        $order->status = 'waiting';
+
         $order->save();
 
         $orderDetailClass = Model::loadModel('OrderDetail');
