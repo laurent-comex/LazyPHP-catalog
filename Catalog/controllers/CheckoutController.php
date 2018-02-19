@@ -225,6 +225,7 @@ class CheckoutController extends FrontController
                     $confirmation_sentence="Vous recevrez un mail de confirmation ou d’annulation de séance 24h avant le début de celle-ci (La séance est annulée s’il y a moins de 3 participants inscrits).<br/>";
                 }
 
+                
 
 
                 $contents=  ' <body>
@@ -289,8 +290,7 @@ class CheckoutController extends FrontController
                                                 <td class="w580" width="580" bgcolor="#F7BF17">
                                                     <br/>
                                                     <strong>Infos séance :</strong> <br/>'
-                                                    //$datetimeInfos['startFormatted']
-                                                    . 'Le [Date] à [Heure] <br/>
+                                                    . 'Le '. $datetimeInfos['startFormatted'] .' <br/>
                                                      Rendez-vous au ' . $item->product->location->address . ' ' . $item->product->location->zip_code . ' ' . $item->product->location->city . '<br/> 
                                                     <br/>
                                                     </td>
@@ -362,27 +362,7 @@ class CheckoutController extends FrontController
 </body>';
 
 
-/*
-                'Bonjour ' .  $this->current_user->firstname .', <br/><br/>
 
-                    Nous vous confirmons la réservation de votre séance de ' . $item->product->activity->label . ' - '. $label_slot .  ' avec le coach ' . $item->product->coach->firstname . '.<br/><br/>
-
-                    Infos séance : <br/>'
-                    //$datetimeInfos['startFormatted']
-                    . 'Le [Date] à [Heure] <br/>
-                    Rendez-vous au ' . $item->product->location->address . ' ' . $item->product->location->zip_code . ' ' . $item->product->location->city . '<br/>
-                    Il est recommandé d’arriver en tenue adaptée 5 minutes avant le début de la séance. <br/><br/>
-
-                    Vous pouvez contacter le coach ' . $item->product->coach->firstname . ' au ' . $item->product->coach->phone . ' pour faciliter votre rencontre ou poser des questions sur la séance. <br/><br/> ' .
-
-                    $confirmation_sentence . ' <br/>  '
-
-                    //Une erreur ? Un empêchement ? Vous pouvez à tout moment annuler votre séance en cliquant ici (Lien vers page d’annulation)
-                    .'<br/>
-                    <a href="http://fitnss.fr/pages/39" target="_blank">Consultez nos conditions générales d’utilisation</a> <br/><br/>
-
-                    Sportivement, <br/>
-                    L’équipe FITNSS ';*/
 
                 //echo $contents;die();
 
