@@ -63,27 +63,32 @@
 
             <div class="col-md-8">
                 <div class="box-total">
-                     <h2>Total <?php echo $total; ?> €</h2>
+                    <div class="pull-left col-md-3">
+                        <img src="/img/logo-secu.jpg" alt="" class="img-fluid" />
+                    </div>
+                    <div class="pull-right col-md-9">
+                        <h2>Total <?php echo $total; ?> €</h2>
 
-                    <form action="/catalog/checkout/pay" method="post">
-                        <script
-                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="{{ stripePublishableKey }}"
-                            data-amount="{{ stripeAmount }}"
-                            data-name="Fitnss"
-                            data-description="Widget"
-                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                            data-locale="fr"
-                            data-zip-code="false"
-                            data-currency="eur"
-                            data-email="{{ email }}"
-                            data-label="Payer par carte">
-                        </script>
-                    </form>
+                        <form action="/catalog/checkout/pay" method="post">
+                            <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="{{ stripePublishableKey }}"
+                                data-amount="{{ stripeAmount }}"
+                                data-name="Fitnss"
+                                data-description="Widget"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-locale="fr"
+                                data-zip-code="false"
+                                data-currency="eur"
+                                data-email="{{ email }}"
+                                data-label="Paiement sécurisé par carte banquaire">
+                            </script>
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
                     <br />
                     {% button url="catalog_checkout_cart" type="secondary" icon="arrow-left" content="Retour au panier" %}
                     <!--{% button url="catalog_payment_mangopay" type="primary" class="btn-blue" content="PAYER" %}-->
-
                 </div>
             </div>
 
