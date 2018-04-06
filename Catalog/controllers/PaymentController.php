@@ -27,4 +27,11 @@ class PaymentController extends FrontController
         );
     }
 
+    public function successAction() {
+        $this->render(
+            'catalog::payment::success',
+            []
+        );
+    }
+
 }

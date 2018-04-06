@@ -23,15 +23,17 @@
                             foreach ($cart->items as $index => $item) {
 
                                 $price = number_format($item->product->getPrice(), 2, ',', ' ');
-
+                                $objDateTime = new DateTime('NOW');
                                 echo
                                     '<tr>'.
                                         '<td class="cart">'.$item->product->label.'</td>'.
                                         '<td>'.$price.'</td>'.
                                         '<td>'.$item->quantity.'</td>'.
-                                        '<td>'.$item->getTotal().'</td>'.
-                                        '<td> {% button url="catalog_checkout_delete_'.($index+1).'" type="danger" size="sm" icon="trash-o" confirmation="Etes vous sûr de vouloir supprimer cette réservation ?" hint="Supprimer" %} </td>'.
-                                    '</tr>';
+                                        '<td>'.$item->getTotal().'</td>';
+                               if ($item->product->start_at > $objDateTime->format('Y-m-d H:i:s'))  {       
+                                    echo '<td> {% button url="catalog_checkout_delete_'.($index+1).'" type="danger" size="sm" icon="trash-o" confirmation="Etes vous sûr de vouloir supprimer cette réservation ?" hint="Supprimer" %} </td>';
+                                }
+                                    echo '</tr>';
                             }
 
                             echo '</table>';
@@ -46,11 +48,14 @@
 
                 <div class="col-md-6 total">
                     <hr>
-                    <h2>Total <?php echo $total; ?> €</h2>
+                    <?php $total_ht = $total / (1+(20/100)); ?>
+                    Total HT <?php echo money_format('%.2n', $total_ht); ?> €<br />
+                    Total TVA <?php echo money_format('%.2n', ($total-$total_ht)); ?> €<br />
+                    <h2>Total TTC <?php echo $total; ?> €</h2>
 
                     <p>
                         <span>En cliquant sur le bouton, vous acceptez <a href="/pages/39" target="_blank">les conditions générales de FITNSS & décharge de responsabilité</a></span>
-                        <br/><input type="checkbox" name="annulation"  id="checkAnnulation"> <span>J'ai lu et j'accepte les conditions d'annulation</span> </input>
+                        <br/><input type="checkbox" name="annulation"  id="checkAnnulation"> <span>J'ai lu et j'accepte les <a href="/pages/39" target="_blank">conditions d'annulation</a></span> </input>
                     </p>
 
                     <?php
